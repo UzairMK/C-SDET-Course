@@ -5,3 +5,4 @@
 3. C# DATA
 4. C# SDET 1
 5. C# SDET 2
+6. Final project
