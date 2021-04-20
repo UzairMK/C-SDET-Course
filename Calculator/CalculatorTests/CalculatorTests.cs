@@ -9,6 +9,7 @@ namespace CalculatorTests
         [TestCase(3,4,7)]
         [TestCase(System.Int32.MaxValue, 1, System.Int32.MaxValue)]
         [TestCase(2000000000, 2000000000, System.Int32.MaxValue)]
+        [TestCase(-2000000000, -2000000000, System.Int32.MinValue)]
         public void AddIsCorrect(int a, int b, int expected)
         {
             int actual = Calculator.Add(a, b);
@@ -18,6 +19,7 @@ namespace CalculatorTests
         [TestCase(3,4,-1)]
         [TestCase(System.Int32.MinValue, 1, System.Int32.MinValue)]
         [TestCase(-2000000000, 2000000000, System.Int32.MinValue)]
+        [TestCase(2000000000, -2000000000, System.Int32.MaxValue)]
         public void SubtractIsCorrect(int a, int b, int expected)
         {
             int actual = Calculator.Subtract(a, b);
@@ -43,10 +45,11 @@ namespace CalculatorTests
                 int actual = Calculator.Divide(a, b);
                 Assert.AreEqual(expected, actual);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (b == 0)
                 {
+                    Console.WriteLine(ex);
                     Assert.Pass();
                 }
                 else
