@@ -7,56 +7,61 @@ namespace CalculatorTests
     public class Tests
     {
         [TestCase(3,4,7)]
-        [TestCase(System.Int32.MaxValue, 1, System.Int32.MaxValue)]
-        [TestCase(2000000000, 2000000000, System.Int32.MaxValue)]
-        [TestCase(-2000000000, -2000000000, System.Int32.MinValue)]
         public void AddIsCorrect(int a, int b, int expected)
         {
             int actual = Calculator.Add(a, b);
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(System.Int32.MaxValue, 1)]
+        [TestCase(2000000000, 2000000000)]
+        [TestCase(-2000000000, -2000000000)]
+        public void AddBoundaryCheck(int a, int b)
+        {
+            Assert.Throws<Exception>(() => Calculator.Add(a, b));
+        }
+
         [TestCase(3,4,-1)]
-        [TestCase(System.Int32.MinValue, 1, System.Int32.MinValue)]
-        [TestCase(-2000000000, 2000000000, System.Int32.MinValue)]
-        [TestCase(2000000000, -2000000000, System.Int32.MaxValue)]
         public void SubtractIsCorrect(int a, int b, int expected)
         {
             int actual = Calculator.Subtract(a, b);
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(System.Int32.MinValue, 1)]
+        [TestCase(-2000000000, 2000000000)]
+        [TestCase(2000000000, -2000000000)]
+        public void SubtractBoundaryCheck(int a, int b)
+        {
+            Assert.Throws<Exception>(() => Calculator.Subtract(a, b));
+        }
+
         [TestCase(3,4,12)]
-        [TestCase(-2000000, 2000000, System.Int32.MinValue)]
-        [TestCase(-2000000, -2000000, System.Int32.MaxValue)]
         public void MultiplyIsCorrect(int a, int b, int expected)
         {
             int actual = Calculator.Multiply(a, b);
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(-2000000, 2000000)]
+        [TestCase(-2000000, -2000000)]
+        public void MultiplyBoundaryCheck(int a, int b)
+        {
+            Assert.Throws<Exception>(() => Calculator.Multiply(a, b));
+        }
+
         [TestCase(3,4,0)]
         [TestCase(System.Int32.MaxValue, -1, -System.Int32.MaxValue)]
-        [TestCase(1, 0, int.MaxValue)]
         public void DivideIsCorrect(int a, int b, int expected)
         {
-            try
-            {
-                int actual = Calculator.Divide(a, b);
-                Assert.AreEqual(expected, actual);
-            }
-            catch (Exception ex)
-            {
-                if (b == 0)
-                {
-                    Console.WriteLine(ex);
-                    Assert.Pass();
-                }
-                else
-                {
-                    Assert.Fail();
-                }
-            }
+            int actual = Calculator.Divide(a, b);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(1, 0)]
+        public void DivideByZeroCheck(int a, int b)
+        {
+            Assert.Throws<Exception>(() => Calculator.Divide(a, b));
         }
 
         [TestCase(3,4,3)]
