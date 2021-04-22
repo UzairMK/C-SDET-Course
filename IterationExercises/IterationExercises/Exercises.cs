@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IterationLib
@@ -38,19 +39,14 @@ namespace IterationLib
         // all other letters are ignored
         public static string CountLetters(string input)
         {
-            int[] count = new int[4];
+            var count = new Dictionary<char, int>() { { 'A', 0 }, { 'B', 0 }, { 'C', 0 }, { 'D', 0 } };
+
             foreach (char c in input)
             {
-                if (c == 'A')
-                    count[0] += 1;
-                if (c == 'B')
-                    count[1] += 1;
-                if (c == 'C')
-                    count[2] += 1;
-                if (c == 'D')
-                    count[3] += 1;
+                if (count.ContainsKey(c))
+                    count[c] += 1;
             }
-            return $"A:{count[0]} B:{count[1]} C:{count[2]} D:{count[3]}";
+            return $"A:{count['A']} B:{count['B']} C:{count['C']} D:{count['D']}";
         }
     }
 }
