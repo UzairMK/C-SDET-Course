@@ -13,10 +13,9 @@ namespace CollectionsExercisesLib
         {
             List<int> result = new List<int>();
 
-            for (int i = 1; i <= max; i++)
+            for (int i = 5; i <= max; i += 5)
             {
-                if (i % 5 == 0)
-                    result.Add(i);
+                result.Add(i);
             }
 
             return result;

@@ -44,7 +44,8 @@ namespace CollectionsExercisesLib
 
             foreach (char c in input)
             {
-                if (!validChar.Contains(c))
+                //if (!validChar.Contains(c))
+                if (!char.IsDigit(c))
                     continue;
 
                 if (digitCount.ContainsKey(c))
@@ -61,7 +62,9 @@ namespace CollectionsExercisesLib
 
             foreach (var dict in digitCount)
             {
-                result += $"[{dict.Key}, {dict.Value}]";
+                //result += $"[{dict.Key}, {dict.Value}]";
+                //result += dict.ToString();
+                result += dict;
             }
 
             return result;
