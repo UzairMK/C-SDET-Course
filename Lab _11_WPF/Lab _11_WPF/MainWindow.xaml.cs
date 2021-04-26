@@ -34,38 +34,10 @@ namespace Lab__11_WPF
             InitializeComponent();
         }
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {
-            _operator = "+";
-            Equals(sender, e);
-        }
-
-        private void ButtonSubtract_Click(object sender, RoutedEventArgs e)
-        {
-            _operator = "-";
-            Equals(sender, e);
-        }
-
-        private void ButtonMultiply_Click(object sender, RoutedEventArgs e)
-        {
-            _operator = "x";
-            Equals(sender, e);
-        }
-
-        private void ButtonDivide_Click(object sender, RoutedEventArgs e)
-        {
-            _operator = "/";
-            Equals(sender, e);
-        }
-
-        private void ButtonModulo_Click(object sender, RoutedEventArgs e)
-        {
-            _operator = "%";
-            Equals(sender, e);
-        }
-
         private void Equals(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            _operator = button.Content.ToString();
             bool num1Bool = int.TryParse(TextBoxNum1.Text, out _num1);
             bool num2Bool = int.TryParse(TextBoxNum2.Text, out _num2);
 
@@ -104,7 +76,7 @@ namespace Lab__11_WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Calculator Limit Error");
+                MessageBox.Show(ex.Message, "Calculator Error");
             }
         }
 
@@ -150,6 +122,15 @@ namespace Lab__11_WPF
             }
 
             TextBlockHistory.Text = _history;
+        }
+
+        private void ButtonResultToNum1_Click(object sender, RoutedEventArgs e)
+        {
+            if (!int.TryParse(LabelResult.Content.ToString(), out _num1))
+                return;
+            TextBoxNum1.Text = LabelResult.Content.ToString();
+            TextBoxNum2.Text = "";
+            LabelResult.Content = "";
         }
     }
 }

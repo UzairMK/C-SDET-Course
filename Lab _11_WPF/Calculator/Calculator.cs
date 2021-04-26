@@ -12,6 +12,6 @@ namespace CalculatorLib
 
         public static int Divide(int a, int b) => b != 0 ? a / b : throw new Exception("You can not divide by 0");
 
-        public static int Modulo(int a, int b) => a < 0 && b < 0 ? -(a % b) : a % b;
+        public static int Modulo(int a, int b) => b != 0 ? a / b : throw new Exception("You can not divide by 0");
     }
 }
