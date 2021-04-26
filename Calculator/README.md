@@ -20,7 +20,7 @@
 
 ​	Windows Presentation Foundation (WPF) was used to create the graphical user interface (GUI) for the app. The app was kept simple, only using buttons, text boxes and labels. The image below shows the final product.
 
-![Basic](Images\Basic.png)
+![UzairsIntegerCalculator](Images/Basic.png)
 
 ​	To use the calculator, simply type in a number within int32's range into both the yellow text boxes and between the two text boxes are five operator buttons, which when clicked will perform that operation on the two numbers provided, taking the top number as the first parameter and the bottom number as the second parameter. The result of calculations appears in the green label. 
 
@@ -34,7 +34,7 @@
 
 ​	The inputs in both text boxes have to be within int32 range. If something else is put there instead, the green result box will display "Invalid Input" as seen below. This will happen if either input box is empty, has characters in it or the number is outside int32 range.
 
-![Invalid_Input](Images\Invalid_Input.png)
+![Invalid_Input](Images/Invalid_Input.png)
 
 
 
@@ -42,7 +42,7 @@
 
 ​	To make things different, instead of handling output errors like input errors, message boxes were used as shown below. The output errors that needed to be handled were when the result was outside int32 range and when division by zero was occurring.
 
-![Output_Errors](Images\Output_Errors.png)
+![Output_Errors](Images/Output_Errors.png)
 
 
 
