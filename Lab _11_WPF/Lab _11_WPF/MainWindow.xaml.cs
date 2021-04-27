@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CalculatorLib;
+using System.IO;
 
 namespace Lab__11_WPF
 {
@@ -21,12 +22,11 @@ namespace Lab__11_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static int _num1 = 0;
-        private static int _num2 = 0;
-        private static string _operator = "";
-        private static string _history = "";
+        private int _num1 = 0;
+        private int _num2 = 0;
+        private string _operator = "";
+        private string _history = "";
         private Queue<string> _historyQueue = new Queue<string>();
-        private int _noOfHistoryItems = 6;
         private bool _compactHistoryEnabled = false;
 
         public MainWindow()
@@ -70,9 +70,10 @@ namespace Lab__11_WPF
                         break;
                 }
 
-                _historyQueue.Enqueue($"{_num1} {_operator} {_num2}\n= {LabelResult.Content}\n");
-
-                MakeHistory();
+                string historyItem = $"{_num1} {_operator} {_num2}\n= {LabelResult.Content}\n";
+                _historyQueue.Enqueue(historyItem);
+                AddToHistory(historyItem);
+                ScrollViewerHistory.Content = _history;
             }
             catch (Exception ex)
             {
@@ -83,7 +84,7 @@ namespace Lab__11_WPF
         private void ButtonClearHistory_Click(object sender, RoutedEventArgs e)
         {
             _history = "";
-            TextBlockHistory.Text = _history;
+            ScrollViewerHistory.Content = _history;
             _historyQueue.Clear();
         }
 
@@ -92,36 +93,43 @@ namespace Lab__11_WPF
             if (_compactHistoryEnabled)
             {
                 ButtonCompactHistory.Content = "S";
-                _noOfHistoryItems = 6;
                 _compactHistoryEnabled = false;
             }
             else
             {
                 ButtonCompactHistory.Content = "C";
-                _noOfHistoryItems = 9;
                 _compactHistoryEnabled = true;
             }
 
-            MakeHistory();
+            RemakeHistory();
         }
 
-        private void MakeHistory()
+        public async void ExportHistory(object sender, RoutedEventArgs e)
+        {
+            //File.WriteAllText(@"Int32CalcHistory.txt", $"{DateTime.Now.ToString("###[dd/MM/yyyy]###[HH:mm:ss]###")}\n" + _history);
+            using StreamWriter file = new("Int32CalcHistory.txt", append: true);
+            await file.WriteLineAsync(DateTime.Now.ToString("###[dd/MM/yyyy]###[HH:mm:ss]###"));
+            await file.WriteLineAsync(_history);
+        }
+
+        private void AddToHistory(string historyItem)
+        {
+            if (_compactHistoryEnabled)
+                _history = historyItem + _history;
+            else
+                _history = historyItem + "\n" + _history;
+        }
+
+        private void RemakeHistory()
         {
             _history = "";
 
-            while (_historyQueue.Count > _noOfHistoryItems)
-            {
-                _historyQueue.Dequeue();
-            }
-
             foreach (var item in _historyQueue)
             {
-                _history += item;
-                if (!_compactHistoryEnabled)
-                    _history += "\n";
+                AddToHistory(item);
             }
 
-            TextBlockHistory.Text = _history;
+            ScrollViewerHistory.Content = _history;
         }
 
         private void ButtonResultToNum1_Click(object sender, RoutedEventArgs e)

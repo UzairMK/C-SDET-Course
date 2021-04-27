@@ -15,7 +15,7 @@
 
         </Grid.ColumnDefinitions>
         <Label x:Name="LabelHistory" Background="Gray" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="258" Width="157" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True">
-            <TextBlock x:Name="TextBlockHistory" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Height="248" Width="147" FontFamily="Arial" ScrollViewer.CanContentScroll="True"/>
+            <ScrollViewer x:Name="ScrollViewerHistory" Height="248" Width="147"/>
         </Label>
         <Button x:Name="ButtonClearHistory" Content="Clear History" HorizontalAlignment="Left" Margin="10,311,0,0" VerticalAlignment="Top" Height="36" Width="157" Click="ButtonClearHistory_Click" FontFamily="Arial Black" FontSize="18" Foreground="Red" Background="#FFFFDADA" BorderBrush="Red"/>
         <TextBox x:Name="TextBoxNum1" HorizontalAlignment="Left" Margin="182,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="24" Background="#FFFFFBA9" BorderBrush="Yellow"/>
@@ -34,5 +34,8 @@
         <Label x:Name="LabelResultTitle" Foreground="#FF00E100" Content="Result:" HorizontalAlignment="Left" Margin="170,220,0,0" VerticalAlignment="Top" Height="41" Width="254" FontFamily="Arial Black" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Button x:Name="ButtonCompactHistory" Content="S" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Height="24" Width="27" FontFamily="Arial Black" FontSize="18" BorderBrush="#FF818181" Background="Black" Foreground="White" Click="ButtonCompactHistory_Click"/>
         <Button x:Name="ButtonResultToNum1" Content="^" HorizontalAlignment="Left" Margin="223,228,0,0" VerticalAlignment="Top" Height="24" Width="27" FontFamily="Arial Black" FontSize="18" BorderBrush="#FF00F900" Background="Black" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonResultToNum1_Click"/>
+        <Button x:Name="ButtonExportHistory" HorizontalAlignment="Left" Margin="140,16,0,0" VerticalAlignment="Top" Height="24" Width="27" FontFamily="Arial Black" FontSize="18" BorderBrush="#FFE800FF" Background="Black" Foreground="White" Click="ExportHistory">
+            <Image Source="/ExportImage.png" Height="17" Width="17" VerticalAlignment="Center" HorizontalAlignment="Center" StretchDirection="Both" Stretch="UniformToFill"/>
+        </Button>
     </Grid>
 </Window>

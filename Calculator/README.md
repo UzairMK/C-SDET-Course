@@ -12,13 +12,13 @@
 
 - [x] Display calculation history.
 
-- [ ] Bonus: Export calculation history to text file.
+- [x] Bonus: Export calculation history to text file.
 
   
 
 ## Calculator App
 
-​	Windows Presentation Foundation (WPF) was used to create the graphical user interface (GUI) for the app. The app was kept simple, only using buttons, text boxes and labels. The image below shows the final product.
+​	Windows Presentation Foundation (WPF) was used to create the graphical user interface (GUI) for the app. The app was kept simple, only using buttons, text boxes, labels and a scroll viewer. The image below shows the final product.
 
 ![Basic](Images\Basic.png)
 
@@ -26,7 +26,9 @@
 
 ​	One can click the green "^" button to clear the yellow input text boxes and insert the result value into the top text box. This was implemented to make it easier to chain calculations and the button only works when the value inside the result box is a valid input.
 
-​	On the left there is a history column which shows your previous calculations so one does not need to note down results separately when working a large calculations. The clear history button will clear the whole history and button next to the history text is used to toggle between "Spread" mode and "Compact" mode. "Spread" mode is displayed in the image and it puts a empty line between each calculation where as "Compact" mode removes those empty lines. "Spread" mode is clearer but "Compact" mode lets the user see more calculations. This button allows the user to use what they would prefer.
+​	On the left there is a history column which shows your previous calculations so one does not need to note down results separately when working a large calculations. The clear history button will clear the whole history and the button next to the history text is used to toggle between "Spread" mode and "Compact" mode. "Spread" mode is displayed in the image and it puts a empty line between each calculation where as "Compact" mode removes those empty lines. "Spread" mode is clearer but "Compact" mode lets the user see more calculations in one go. This button allows the user to use what they would prefer. There is also an export button on the right of the history text if one wants a text file filled with the calculations they performed (example below). This text file will appear in the same directory as the the .exe file and if it already exists, the new history items will be appended to the end of the file. 
+
+![ExportHistoryExample](Images\ExportHistoryExample.png)
 
 
 
@@ -112,17 +114,16 @@ private static int _num2 = 0;
 private static string _operator = "";
 private static string _history = "";
 private Queue<string> _historyQueue = new Queue<string>();
-private int _noOfHistoryItems = 6;
 private bool _compactHistoryEnabled = false;
 ```
 
-​	`_num1` and `_num2` store the two input values the calculation is going to be performed on, `_operator` is set to the operation that is going to be performed, `_history` is the string that is displayed on the left hand side of the app, `_historyQueue` is where all the history items are stored, `_noOfHistoryItems` is how many items will be displayed on the history column at a given time (6 for "Spread" mode and 9 for "Compact" mode) and `_compactHistoryEnabled` determines which history mode one is on.
+​	`_num1` and `_num2` store the two input values the calculation is going to be performed on, `_operator` is set to the operation that is going to be performed, `_history` is the string that is displayed on the left hand side of the app, `_historyQueue` is where all the history items are stored, and `_compactHistoryEnabled` determines which history mode one is on.
 
 
 
 ##### Operator button method
 
-​	To keep the code DRY, all five operation buttons used the same method and the content of the button decided which operation was going to be performed. The method first checks to make sure the input values are valid then enters a try catch block to catch any output errors while doing the calculation. At the end of the calculation, the calculation is added to the `_historyQueue` and the history is updated with `MakeHistory()` method.
+​	To keep the code DRY, all five operation buttons used the same method and the content of the button decided which operation was going to be performed. The method first checks to make sure the input values are valid then enters a try catch block to catch any output errors while doing the calculation. At the end of the calculation, the calculation is added to the `_historyQueue` and the `_history` is updated with `AddToHistory()` method then `_history` is displayed on the scroll viewer.
 
 ```csharp
 		private void Equals(object sender, RoutedEventArgs e)
@@ -161,9 +162,10 @@ private bool _compactHistoryEnabled = false;
                         break;
                 }
 
-                _historyQueue.Enqueue($"{_num1} {_operator} {_num2}\n= {LabelResult.Content}\n");
-
-                MakeHistory();
+                string historyItem = $"{_num1} {_operator} {_num2}\n= {LabelResult.Content}\n";
+                _historyQueue.Enqueue(historyItem);
+                AddToHistory(historyItem);
+                ScrollViewerHistory.Content = _history;
             }
             catch (Exception ex)
             {
@@ -174,28 +176,17 @@ private bool _compactHistoryEnabled = false;
 
 
 
-##### Make history method
+##### Add to history method
 
-​	Every time the history is updated, the `_history` variable is cleared and reconstructed using the history items in `_historyQueue` . Depending on what history mode is selected only a certain amount of history items can be stored in the `_historyQueue`. If the number of items exceeds the number allows by the certain mode then history items are removed one by one starting from the oldest until it reaches the allowed number. Also, when `_history` is being constructed, if the mode is set to "Compact", then an extra line is added between each history item.
+​	Every time the history is updated, the new history item is concatenated to the front of the `_history` variable and if the history mode is "Spread", an empty line is also added in between.
 
 ```csharp
-        private void MakeHistory()
+        private void AddToHistory(string historyItem)
         {
-            _history = "";
-
-            while (_historyQueue.Count > _noOfHistoryItems)
-            {
-                _historyQueue.Dequeue();
-            }
-
-            foreach (var item in _historyQueue)
-            {
-                _history += item;
-                if (!_compactHistoryEnabled)
-                    _history += "\n";
-            }
-
-            TextBlockHistory.Text = _history;
+            if (_compactHistoryEnabled)
+                _history = historyItem + _history;
+            else
+                _history = historyItem + "\n" + _history;
         }
 ```
 
@@ -226,17 +217,50 @@ private bool _compactHistoryEnabled = false;
             if (_compactHistoryEnabled)
             {
                 ButtonCompactHistory.Content = "S";
-                _noOfHistoryItems = 6;
                 _compactHistoryEnabled = false;
             }
             else
             {
                 ButtonCompactHistory.Content = "C";
-                _noOfHistoryItems = 9;
                 _compactHistoryEnabled = true;
             }
 
-            MakeHistory();
+            RemakeHistory();
+        }
+```
+
+
+
+##### Remake history method
+
+​	The `RemakeHistory` method does as the name suggests. It recreates the `_history` variable using all the history items in `_historyQueue`, making sure to add empty lines in is the history mode is "Spread", then displays `_history` on the scroll viewer.
+
+```csharp
+        private void RemakeHistory()
+        {
+            _history = "";
+
+            foreach (var item in _historyQueue)
+            {
+                AddToHistory(item);
+            }
+
+            ScrollViewerHistory.Content = _history;
+        }
+```
+
+
+
+##### Export history button
+
+​	The `ExportHistory` method is attached to the purple export button to the right of the history text. It will create a text file called "Int32CalcHistory" in the same directory as the .exe file and if a text file with the same name exists in that location, then it will append on to it. The date and time is written into the file followed by the calculation history.
+
+```csharp
+        public async void ExportHistory(object sender, RoutedEventArgs e)
+        {
+            using StreamWriter file = new("Int32CalcHistory.txt", append: true);
+            await file.WriteLineAsync(DateTime.Now.ToString("###[dd/MM/yyyy]###[HH:mm:ss]###"));
+            await file.WriteLineAsync(_history);
         }
 ```
 

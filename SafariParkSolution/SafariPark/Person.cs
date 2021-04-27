@@ -21,6 +21,7 @@ namespace SafariPark
             set { if (value >= 0) _age = value; }
         }
 
+        public Person() { }
         public Person(string fName, string lName)
         {
             _firstName = fName;
@@ -37,6 +38,11 @@ namespace SafariPark
         public string GetFullName()
         {
             return $"{_firstName} {_lastName}";
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, Name: {GetFullName()}, Age: {Age}";
         }
     }
 }
