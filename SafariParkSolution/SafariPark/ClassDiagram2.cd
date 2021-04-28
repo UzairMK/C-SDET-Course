@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SafariPark.CyberToothTiger">
+    <Position X="1.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgBAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CyberToothTiger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SafariPark.WoolyBear">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgBAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WoolyBear.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SafariPark.NakedEagle">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgBAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NakedEagle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SafariPark.Map">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAABAAYAA=</HashCode>
+      <FileName>Map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SafariPark.MapLocation">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAEAAgAAAAAAAAAAAAACAEEAAAAAAYAA=</HashCode>
+      <FileName>MapLocation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SafariPark.Player">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SafariPark.BasicEnemy">
+    <Position X="3.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAACAAAAAAAgBQAAAAACAAAAAgAAAAAM=</HashCode>
+      <FileName>BasicEnemy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="SafariPark.IntVector2D">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Vector2D.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="SafariPark.IEnemy">
+    <Position X="1.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAACAAAAAAAAAQAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Interface\IEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SafariPark
 {
-    public class Vehicle
+    public class Vehicle : IMoveable
     {
         private int _capacity;
         private int _numPassengers;

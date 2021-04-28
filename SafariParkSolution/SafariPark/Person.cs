@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SafariPark
 {
-    public class Person
+    public class Person : IMoveable
     {
         private string _firstName;
         private string _lastName;
@@ -38,6 +38,16 @@ namespace SafariPark
         public string GetFullName()
         {
             return $"{_firstName} {_lastName}";
+        }
+
+        public string Move()
+        {
+            return "Walking along";
+        }
+
+        public string Move(int times)
+        {
+            return $"Walking along {times} times";
         }
 
         public override string ToString()
