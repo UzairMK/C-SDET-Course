@@ -16,9 +16,9 @@
 
         protected override void SetAbilities()
         {
-            abilities.Add((80, 20, 25, "Bite"));
-            abilities.Add((20, 15, 18, "Scratch"));
-            abilities.Add((0, 5, 10, "Aggressive tickle"));
+            abilities.Add((20, 20, 25, "Bite"));
+            abilities.Add((60, 15, 18, "Scratch"));
+            abilities.Add((20, 5, 10, "Aggressive tickle"));
         }
     }
 }

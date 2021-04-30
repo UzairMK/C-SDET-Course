@@ -5,11 +5,11 @@ namespace SafariPark
 {
     public abstract class BasicEnemy : IEnemy
     {
-        private readonly char _icon = '!';
+        private readonly string _icon = "! ";
         public MapLocation MapLocation { get; set; }
         public int HP { get; set; }
-        public List<(int prob, int minDam, int maxDam, string moveName)> abilities = new List<(int prob, int minDam, int maxDam, string moveName)>();
-        public List<(string attribute, char operation, int modifierValue)> damageModifiers = new List<(string attribute, char operation, int modifierValue)>();
+        public List<(int prob, int minDam, int maxDam, string moveName)> abilities = new();
+        public List<(string attribute, char operation, int modifierValue)> damageModifiers = new();
 
 
         public BasicEnemy(Map map, int hp)
@@ -59,16 +59,25 @@ namespace SafariPark
 
         public void DealDamage(Player player)
         {
-            Random rng = new Random();
-            int i = rng.Next(100);
-
-            foreach (var ability in abilities)
+            int probabilitySum = 0;
+            List<int> probabilityList = new();
+            foreach (var (prob, minDam, maxDam, moveName) in abilities)
             {
-                if (i >= ability.prob)
+                probabilitySum += prob;
+                probabilityList.Add(probabilitySum);
+            }
+
+            Random rng = new();
+            int r = rng.Next(probabilitySum + 1);
+
+            for (int i = 0; i < probabilityList.Count; i++)
+            {
+                if (r <= probabilityList[i])
                 {
-                    int damage = rng.Next(ability.minDam, ability.maxDam + 1);
+                    var (_, minDam, maxDam, moveName) = abilities[i];
+                    int damage = rng.Next(minDam, maxDam + 1);
                     player.HP -= damage;
-                    Console.WriteLine($"{GetType().Name} used '{ability.moveName}' to do {damage} damage.");
+                    Console.WriteLine($"{GetType().Name} used '{moveName}' to do {damage} damage.");
                     return;
                 }
             }

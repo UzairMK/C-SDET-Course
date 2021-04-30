@@ -5,9 +5,9 @@ namespace SafariPark
 {
     public class MapLocation
     {
-        private char _icon;
-        private Map _map;
-        private Dictionary<char, int[]> directionDict = new Dictionary<char, int[]>()
+        private readonly string _icon;
+        private readonly Map _map;
+        private readonly Dictionary<char, int[]> directionDict = new()
         {
             { 'w', new int[] { -1, 0 } },
             { 's', new int[] { 1, 0 } },
@@ -18,20 +18,20 @@ namespace SafariPark
         public int X { get; set; }
         public int Y { get; set; }
 
-        public MapLocation(Map map, char icon)
+        public MapLocation(Map map, string icon)
         {
             _map = map;
             _icon = icon;
             do
             {
-                Random rng = new Random();
+                Random rng = new();
                 X = rng.Next(1, map.MapArray.GetLength(0));
                 Y = rng.Next(1, map.MapArray.GetLength(1));
             } while (_map.MapArray[X, Y] != _map.emptySpace);
             _map.MapArray[X, Y] = _icon;
         }
 
-        public MapLocation(int x, int y, Map map, char icon)
+        public MapLocation(int x, int y, Map map, string icon)
         {
             X = x;
             Y = y;
@@ -67,7 +67,12 @@ namespace SafariPark
         public override bool Equals(object obj)
         {
             MapLocation that = (MapLocation)obj;
-            return X == that.X && Y == that.Y ? true : false;
+            return X == that.X && Y == that.Y;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
         }
     }
 }

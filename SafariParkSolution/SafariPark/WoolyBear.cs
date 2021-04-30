@@ -16,9 +16,9 @@
 
         protected override void SetAbilities()
         {
-            abilities.Add((60, 5, 20, "FRIENDLY Hug"));
+            abilities.Add((40, 5, 20, "FRIENDLY Hug"));
             abilities.Add((30, 5, 15, "Wooly Slap"));
-            abilities.Add((0, 1, 5, "Yawn"));
+            abilities.Add((30, 1, 5, "Yawn"));
         }
     }
 }

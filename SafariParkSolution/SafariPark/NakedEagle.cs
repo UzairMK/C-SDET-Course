@@ -17,9 +17,9 @@
 
         protected override void SetAbilities()
         {
-            abilities.Add((70, 15, 23, "Bite"));
-            abilities.Add((30, 8, 13, "Slap"));
-            abilities.Add((0, 0, 0, "Blank stare"));
+            abilities.Add((30, 15, 23, "Bite"));
+            abilities.Add((40, 8, 13, "Slap"));
+            abilities.Add((30, 0, 0, "Blank stare"));
         }
     }
 }
