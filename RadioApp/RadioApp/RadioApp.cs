@@ -1,16 +1,38 @@
-﻿using System;
+﻿using System.IO;
 
 namespace RadioApp
 {
     public class Radio
     {
-        private int _channel = 1;
+        public readonly string sourceTextFileName = "Sources.txt";
+        public readonly string settingsTextFileName = "Settings.txt";
         private bool _on;
+        private int _channel = 1;
+        private float _volume;
 
+        public bool On { get { return _on; } }
         public int Channel 
         {
             get { return _channel; }
             set { _channel = value > 0 && value <= 4 && _on ? value : _channel; } 
+        }
+        public float Volume 
+        {
+            get { return _volume; }
+            set { _volume = value < 0 ? 0 : value > 1 ? 1 : value; }
+        }
+        public string[] Sources { get; set; }
+
+        public Radio()
+        {
+            if (File.Exists(sourceTextFileName))
+                Sources = File.ReadAllLines(sourceTextFileName);
+            if (File.Exists(settingsTextFileName))
+            {
+                var setting = File.ReadAllLines(settingsTextFileName);
+                _volume = float.Parse(setting[0]);
+                _channel = int.Parse(setting[1]);
+            }
         }
 
         public string Play()
@@ -26,7 +48,13 @@ namespace RadioApp
         {
             _on = false;
         }
+
+        public void ToggleOnOff()
+        {
+            if (_on)
+                TurnOff();
+            else
+                TurnOn();
+        }
     }
-    // implement a class Radio that corresponds to the Class diagram 
-    //   and specification in the Radio_Mini_Project document
 }

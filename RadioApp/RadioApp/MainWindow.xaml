@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RadioApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Uzair's Radio" Height="276" Width="543">
     <Grid Background="Black">
+        <Button x:Name="ButtonChannelDown" Tag="C/-1" Content="&lt;" HorizontalAlignment="Left" Margin="12,63,0,0" VerticalAlignment="Top" Height="66" Width="78" BorderBrush="#FF00FF0C" FontSize="48" FontWeight="Bold" FontStyle="Normal" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="ChangeChannel" Foreground="White" Background="{x:Null}"/>
+        <Button x:Name="ButtonChannelUp" Tag="C/1" Content="&gt;" HorizontalAlignment="Left" Margin="434,63,0,0" VerticalAlignment="Top" Height="66" Width="76" BorderBrush="#FF00FF0C" FontSize="48" FontWeight="Bold" FontStyle="Normal" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="ChangeChannel" Background="{x:Null}" Foreground="#FFFFFDFD"/>
+        <Label x:Name="LabelChannel" Content="1" HorizontalAlignment="Left" Margin="90,63,0,0" VerticalAlignment="Top" Background="White" Width="86" Height="66" FontSize="36" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelOnOff" Content="" HorizontalAlignment="Left" Margin="24,174,0,0" VerticalAlignment="Top" Background="Red" Width="58" Height="27" FontSize="36" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="#FF8F8F8F"/>
+        <Button x:Name="ButtonOnOff" HorizontalAlignment="Left" Margin="89,156,0,0" VerticalAlignment="Top" Height="66" Width="83" BorderBrush="{x:Null}" FontSize="48" FontWeight="Bold" FontStyle="Normal" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="ButtonOnOff_Click" Background="{x:Null}" Foreground="{x:Null}">
+            <Image Height="56" Width="54" Source="/PowerIcon.png" AutomationProperties.IsOffscreenBehavior="Default" Stretch="Uniform"/>
+        </Button>
+        <Label Content="Channel" HorizontalAlignment="Left" Margin="176,7,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF23FF00" FontSize="36" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelChannel_Copy" Content="2" HorizontalAlignment="Left" Margin="176,63,0,0" VerticalAlignment="Top" Background="White" Width="86" Height="66" FontSize="36" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelChannel_Copy1" Content="3" HorizontalAlignment="Left" Margin="262,63,0,0" VerticalAlignment="Top" Background="White" Width="86" Height="66" FontSize="36" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelChannel_Copy2" Content="4" HorizontalAlignment="Left" Margin="348,63,0,0" VerticalAlignment="Top" Background="White" Width="86" Height="66" FontSize="36" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Slider x:Name="SliderVolume" HorizontalAlignment="Left" Margin="219,189,0,0" VerticalAlignment="Top" Width="253" RenderTransformOrigin="0.5,0.5" ValueChanged="SliderVolume_ValueChanged" Interval="1" BorderBrush="{x:Null}" Background="{x:Null}">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Label Content="Volume" HorizontalAlignment="Left" Margin="262,138,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF00DCFF" FontSize="36" FontFamily="Arial Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <MediaElement x:Name="Ch1" HorizontalAlignment="Left" Height="100" Margin="-140,4,0,0" VerticalAlignment="Top" Width="100" Volume="0" LoadedBehavior="Play" Source="http://icy-e-bab-04-cr.sharp-stream.com/absoluteradio.mp3"/>
+        <MediaElement x:Name="Ch2" HorizontalAlignment="Left" Height="100" Margin="-140,4,0,0" VerticalAlignment="Top" Width="100" Volume="0" LoadedBehavior="Play" Source="https://stream-al.planetradio.co.uk/kerrang.mp3"/>
+        <MediaElement x:Name="Ch3" HorizontalAlignment="Left" Height="100" Margin="-140,4,0,0" VerticalAlignment="Top" Width="100" Volume="0" LoadedBehavior="Play" Source="http://46.10.150.243/jazz-fm-lounge.mp3"/>
+        <MediaElement x:Name="Ch4" HorizontalAlignment="Left" Height="100" Margin="-140,4,0,0" VerticalAlignment="Top" Width="100" Volume="0" LoadedBehavior="Play" Source="http://live-bauer-mz.sharp-stream.com/viking.mp3"/>
+        <Label x:Name="P1" Content="" HorizontalAlignment="Left" Margin="130,102,0,0" VerticalAlignment="Top" Background="Red" BorderBrush="#FFAEAEAE"/>
+        <Label x:Name="P2" Content="" HorizontalAlignment="Left" Margin="214,102,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="#FFAEAEAE"/>
+        <Label x:Name="P3" Content="" HorizontalAlignment="Left" Margin="300,102,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="#FFAEAEAE"/>
+        <Label x:Name="P4" Content="" HorizontalAlignment="Left" Margin="386,102,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="#FFAEAEAE"/>
 
     </Grid>
 </Window>

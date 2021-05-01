@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SafariPark
+﻿namespace SafariPark
 {
     public class Map
     {
@@ -16,8 +10,8 @@ namespace SafariPark
 
         public Map(int x, int y)
         {
-            X = x;
-            Y = y;
+            X = x > 4 ? x : 5;
+            Y = y > 4 ? y : 5;
             MakeMapArray();
         }
 
