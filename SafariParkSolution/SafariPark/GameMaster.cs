@@ -23,6 +23,7 @@ namespace SafariPark
 
             while (true)
             {
+                player.HP += 1;
                 turn += 1;
                 switch (gameState)
                 {
