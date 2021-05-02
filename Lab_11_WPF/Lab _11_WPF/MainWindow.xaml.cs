@@ -26,7 +26,7 @@ namespace Lab__11_WPF
         private int _num2 = 0;
         private string _operator = "";
         private string _history = "";
-        private Queue<string> _historyQueue = new Queue<string>();
+        private readonly Queue<string> _historyQueue = new();
         private bool _compactHistoryEnabled = false;
 
         public MainWindow()
