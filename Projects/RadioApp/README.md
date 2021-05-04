@@ -50,8 +50,9 @@
 
         public Radio()
         {
-            if (File.Exists(sourceTextFileName))
-                Sources = File.ReadAllLines(sourceTextFileName);
+            if (!File.Exists(sourceTextFileName))
+                File.WriteAllText(sourceTextFileName, $"http://icy-e-bab-04-cr.sharp-stream.com/absoluteradio.mp3\nhttps://stream-al.planetradio.co.uk/kerrang.mp3\nhttp://46.10.150.243/jazz-fm-lounge.mp3\nhttp://live-bauer-mz.sharp-stream.com/viking.mp3");
+            Sources = File.ReadAllLines(sourceTextFileName);
             if (File.Exists(settingsTextFileName))
             {
                 var setting = File.ReadAllLines(settingsTextFileName);
