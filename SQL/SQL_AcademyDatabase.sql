@@ -55,14 +55,16 @@ CREATE TABLE Trainees
 
 CREATE TABLE TrainersStreamsLink
 (
-	trainer_id INT FOREIGN KEY REFERENCES Trainers (trainer_id),
-	stream VARCHAR(25) FOREIGN KEY REFERENCES Streams (stream)
+	pk INT IDENTITY(1,1) PRIMARY KEY,
+	trainer_id INT NOT NULL FOREIGN KEY REFERENCES Trainers (trainer_id),
+	stream VARCHAR(25) NOT NULL FOREIGN KEY REFERENCES Streams (stream)
 );
 
 CREATE TABLE TrainersCoursesLink
 (
-	trainer_id INT FOREIGN KEY REFERENCES Trainers (trainer_id),
-	course VARCHAR(25) FOREIGN KEY REFERENCES Courses (course)
+	pk INT IDENTITY(1,1) PRIMARY KEY,
+	trainer_id INT NOT NULL FOREIGN KEY REFERENCES Trainers (trainer_id),
+	course VARCHAR(25) NOT NULL FOREIGN KEY REFERENCES Courses (course)
 );
 
 INSERT INTO Streams

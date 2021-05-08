@@ -9,96 +9,86 @@ namespace SpartaAcademyDatabseOnCSharp
         {
             using (var db = new SpartaAcademyContext())
             {
-                //ViewAll(db);
+                ViewAll(db);
 
-                //var newLocation = new Location()
-                //{
-                //    City = "Manchester",
-                //    Postcode = "MA21 6HG"
-                //};
+                var newLocation = new Location()
+                {
+                    City = "Manchester",
+                    Postcode = "MA21 6HG"
+                };
 
-                //db.Locations.Add(newLocation);
+                db.Locations.Add(newLocation);
 
-                //var newStream = new Stream()
-                //{
-                //    Stream1 = "Security",
-                //    YearsRun = 0
-                //};
+                var newStream = new Stream()
+                {
+                    Stream1 = "Security",
+                    YearsRun = 0
+                };
 
-                //db.Streams.Add(newStream);
+                db.Streams.Add(newStream);
 
-                //var newCourse = new Course()
-                //{
-                //    Course1 = "Security 1",
-                //    Stream = "Security",
-                //    StartDate = new DateTime(2021, 06, 04)
-                //};
+                var newCourse = new Course()
+                {
+                    Course1 = "Security 1",
+                    Stream = "Security",
+                    StartDate = new DateTime(2021, 06, 04)
+                };
 
-                //db.Courses.Add(newCourse);
+                db.Courses.Add(newCourse);
 
 
-                //var newTrainer = new Trainer()
-                //{
-                //    TrainerId = 4,
-                //    FirstName = "Kali",
-                //    LastName = "Linux",
-                //    YearsOfExperience = 0,
-                //    Location = "Manchester"
-                //};
+                var newTrainer = new Trainer()
+                {
+                    FirstName = "Kali",
+                    LastName = "Linux",
+                    YearsOfExperience = 0,
+                    Location = "Manchester"
+                };
 
-                //db.Trainers.Add(newTrainer);
+                db.Trainers.Add(newTrainer);
 
-                //var newTrainerCourseLink = new TrainersCoursesLink()
-                //{
-                //    //TrainerId = 4,
-                //    //Course = "Security 1"
-                //    Trainer = new Trainer()
-                //    {
-                //        //TrainerId = 4,
-                //        FirstName = "Jim",
-                //        LastName = "Linux",
-                //        YearsOfExperience = 0,
-                //        Location = "Manchester"
-                //    },
-                //    Course = "Security 1"
-                //};
+                var newTrainerCourseLink = new TrainersCoursesLink()
+                {
+                    TrainerId = 4,
+                    Course = "Security 1"
+                };
 
-                //db.TrainersCoursesLinks.Add(newTrainerCourseLink);
+                db.TrainersCoursesLinks.Add(newTrainerCourseLink);
 
-                ////var newTrainerStreamLink = new TrainersStreamsLink()
-                ////{
-                ////    TrainerId = 4,
-                ////    Stream = "Security"
-                ////};
+                var newTrainerStreamLink = new TrainersStreamsLink()
+                {
+                    TrainerId = 4,
+                    Stream = "Security"
+                };
 
-                ////db.TrainersStreamsLinks.Add(newTrainerStreamLink);
+                db.TrainersStreamsLinks.Add(newTrainerStreamLink);
 
-                //var newTrainee = new Trainee()
-                //{
-                //    FirstName = "Neu",
-                //    LastName = "Terry",
-                //    DateOfBirth = new DateTime(1998, 08, 12),
-                //    TrainerId = 4,
-                //    Stream = "Security",
-                //    Course = "Security 1",
-                //    Location = "Manchester"
-                //};
+                var newTrainee = new Trainee()
+                {
+                    FirstName = "Neu",
+                    LastName = "Terry",
+                    DateOfBirth = new DateTime(1998, 08, 12),
+                    TrainerId = 4,
+                    Stream = "Security",
+                    Course = "Security 1",
+                    Location = "Manchester"
+                };
 
-                //db.Trainees.Add(newTrainee);
+                db.Trainees.Add(newTrainee);
 
-                //db.SaveChanges();
-                //ViewAll(db);
+                db.SaveChanges();
+                ViewAll(db);
 
                 //var selectLocation = db.Locations.Where(x => x.City == "Manchester").FirstOrDefault();
-                //selectLocation.City = "Changed!";
+                //selectLocation.Postcode = "Changed";
                 //var selectCourse = db.Courses.Where(x => x.Course1 == "Security 1").FirstOrDefault();
-                //selectCourse.Course1 = "Changed!";
+                //selectCourse.StartDate = new DateTime();
                 //var selectStream = db.Streams.Where(x => x.Stream1 == "Security").FirstOrDefault();
-                //selectStream.Stream1 = "Changed!";
+                //selectStream.YearsRun = 99;
                 //var selectTrainer = db.Trainers.Where(x => x.TrainerId == 4).FirstOrDefault();
-                //selectTrainer.FirstName = "Changed!";
+                //selectTrainer.FirstName = "Changed";
                 //var selectTrainee = db.Trainees.Where(x => x.FirstName == "Neu").FirstOrDefault();
-                //selectTrainee.FirstName = "Changed!";
+                //selectTrainee.FirstName = "Changed";
                 //var selectTCL = db.TrainersCoursesLinks.Where(x => x.TrainerId == 4).FirstOrDefault();
                 //selectTCL.Course = "Changed!";
                 //var selectTSL = db.TrainersStreamsLinks.Where(x => x.TrainerId == 4).FirstOrDefault();
@@ -110,8 +100,8 @@ namespace SpartaAcademyDatabseOnCSharp
                 //var selectLocation2 = db.Locations.Where(x => x.City == "Manchester").FirstOrDefault();
                 //var selectCourse2 = db.Courses.Where(x => x.Course1 == "Security 1").FirstOrDefault();
                 //var selectStream2 = db.Streams.Where(x => x.Stream1 == "Security").FirstOrDefault();
-                //var selectTrainer2 = db.Trainers.Where(x => x.FirstName == "Kali").FirstOrDefault();
-                //var selectTrainee2 = db.Trainees.Where(x => x.FirstName == "Neu").FirstOrDefault();
+                //var selectTrainer2 = db.Trainers.Where(x => x.FirstName == "Changed").FirstOrDefault();
+                //var selectTrainee2 = db.Trainees.Where(x => x.FirstName == "Changed").FirstOrDefault();
                 ////var selectTCL = db.TrainersCoursesLinks.Where(x => x.TrainerId == 4).FirstOrDefault();
                 ////var selectTSL = db.TrainersStreamsLinks.Where(x => x.TrainerId == 4).FirstOrDefault();
                 //db.Locations.Remove(selectLocation2);

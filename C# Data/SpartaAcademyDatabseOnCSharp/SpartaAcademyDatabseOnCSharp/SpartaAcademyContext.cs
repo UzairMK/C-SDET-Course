@@ -41,7 +41,7 @@ namespace SpartaAcademyDatabseOnCSharp
             modelBuilder.Entity<Course>(entity =>
             {
                 entity.HasKey(e => e.Course1)
-                    .HasName("PK__Courses__1241F7F709AF292B");
+                    .HasName("PK__Courses__1241F7F7CDD0BE2E");
 
                 entity.Property(e => e.Course1)
                     .HasMaxLength(25)
@@ -60,13 +60,13 @@ namespace SpartaAcademyDatabseOnCSharp
                 entity.HasOne(d => d.StreamNavigation)
                     .WithMany(p => p.Courses)
                     .HasForeignKey(d => d.Stream)
-                    .HasConstraintName("FK__Courses__stream__5D95E53A");
+                    .HasConstraintName("FK__Courses__stream__336AA144");
             });
 
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.HasKey(e => e.City)
-                    .HasName("PK__Location__23BEBA6BFBCF12A4");
+                    .HasName("PK__Location__23BEBA6BF57B8E85");
 
                 entity.Property(e => e.City)
                     .HasMaxLength(25)
@@ -82,7 +82,7 @@ namespace SpartaAcademyDatabseOnCSharp
             modelBuilder.Entity<Stream>(entity =>
             {
                 entity.HasKey(e => e.Stream1)
-                    .HasName("PK__Streams__3F189F46E89B1DF3");
+                    .HasName("PK__Streams__3F189F460D10DFC6");
 
                 entity.Property(e => e.Stream1)
                     .HasMaxLength(25)
@@ -130,22 +130,22 @@ namespace SpartaAcademyDatabseOnCSharp
                 entity.HasOne(d => d.CourseNavigation)
                     .WithMany(p => p.Trainees)
                     .HasForeignKey(d => d.Course)
-                    .HasConstraintName("FK__Trainees__course__65370702");
+                    .HasConstraintName("FK__Trainees__course__3B0BC30C");
 
                 entity.HasOne(d => d.LocationNavigation)
                     .WithMany(p => p.Trainees)
                     .HasForeignKey(d => d.Location)
-                    .HasConstraintName("FK__Trainees__locati__662B2B3B");
+                    .HasConstraintName("FK__Trainees__locati__3BFFE745");
 
                 entity.HasOne(d => d.StreamNavigation)
                     .WithMany(p => p.Trainees)
                     .HasForeignKey(d => d.Stream)
-                    .HasConstraintName("FK__Trainees__stream__6442E2C9");
+                    .HasConstraintName("FK__Trainees__stream__3A179ED3");
 
                 entity.HasOne(d => d.Trainer)
                     .WithMany(p => p.Trainees)
                     .HasForeignKey(d => d.TrainerId)
-                    .HasConstraintName("FK__Trainees__traine__634EBE90");
+                    .HasConstraintName("FK__Trainees__traine__39237A9A");
             });
 
             modelBuilder.Entity<Trainer>(entity =>
@@ -172,16 +172,20 @@ namespace SpartaAcademyDatabseOnCSharp
                 entity.HasOne(d => d.LocationNavigation)
                     .WithMany(p => p.Trainers)
                     .HasForeignKey(d => d.Location)
-                    .HasConstraintName("FK__Trainers__locati__607251E5");
+                    .HasConstraintName("FK__Trainers__locati__36470DEF");
             });
 
             modelBuilder.Entity<TrainersCoursesLink>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Pk)
+                    .HasName("PK__Trainers__321403CF6CE66190");
 
                 entity.ToTable("TrainersCoursesLink");
 
+                entity.Property(e => e.Pk).HasColumnName("pk");
+
                 entity.Property(e => e.Course)
+                    .IsRequired()
                     .HasMaxLength(25)
                     .IsUnicode(false)
                     .HasColumnName("course");
@@ -189,23 +193,29 @@ namespace SpartaAcademyDatabseOnCSharp
                 entity.Property(e => e.TrainerId).HasColumnName("trainer_id");
 
                 entity.HasOne(d => d.CourseNavigation)
-                    .WithMany()
+                    .WithMany(p => p.TrainersCoursesLinks)
                     .HasForeignKey(d => d.Course)
-                    .HasConstraintName("FK__TrainersC__cours__6BE40491");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__TrainersC__cours__43A1090D");
 
                 entity.HasOne(d => d.Trainer)
-                    .WithMany()
+                    .WithMany(p => p.TrainersCoursesLinks)
                     .HasForeignKey(d => d.TrainerId)
-                    .HasConstraintName("FK__TrainersC__train__6AEFE058");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__TrainersC__train__42ACE4D4");
             });
 
             modelBuilder.Entity<TrainersStreamsLink>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Pk)
+                    .HasName("PK__Trainers__321403CF7DEB6B1B");
 
                 entity.ToTable("TrainersStreamsLink");
 
+                entity.Property(e => e.Pk).HasColumnName("pk");
+
                 entity.Property(e => e.Stream)
+                    .IsRequired()
                     .HasMaxLength(25)
                     .IsUnicode(false)
                     .HasColumnName("stream");
@@ -213,14 +223,16 @@ namespace SpartaAcademyDatabseOnCSharp
                 entity.Property(e => e.TrainerId).HasColumnName("trainer_id");
 
                 entity.HasOne(d => d.StreamNavigation)
-                    .WithMany()
+                    .WithMany(p => p.TrainersStreamsLinks)
                     .HasForeignKey(d => d.Stream)
-                    .HasConstraintName("FK__TrainersS__strea__690797E6");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__TrainersS__strea__3FD07829");
 
                 entity.HasOne(d => d.Trainer)
-                    .WithMany()
+                    .WithMany(p => p.TrainersStreamsLinks)
                     .HasForeignKey(d => d.TrainerId)
-                    .HasConstraintName("FK__TrainersS__train__681373AD");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__TrainersS__train__3EDC53F0");
             });
 
             OnModelCreatingPartial(modelBuilder);

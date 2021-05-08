@@ -11,6 +11,7 @@ namespace SpartaAcademyDatabseOnCSharp
         {
             Courses = new HashSet<Course>();
             Trainees = new HashSet<Trainee>();
+            TrainersStreamsLinks = new HashSet<TrainersStreamsLink>();
         }
 
         public string Stream1 { get; set; }
@@ -18,5 +19,6 @@ namespace SpartaAcademyDatabseOnCSharp
 
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Trainee> Trainees { get; set; }
+        public virtual ICollection<TrainersStreamsLink> TrainersStreamsLinks { get; set; }
     }
 }

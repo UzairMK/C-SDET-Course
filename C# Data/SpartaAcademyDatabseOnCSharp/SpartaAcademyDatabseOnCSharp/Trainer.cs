@@ -10,6 +10,8 @@ namespace SpartaAcademyDatabseOnCSharp
         public Trainer()
         {
             Trainees = new HashSet<Trainee>();
+            TrainersCoursesLinks = new HashSet<TrainersCoursesLink>();
+            TrainersStreamsLinks = new HashSet<TrainersStreamsLink>();
         }
 
         public int TrainerId { get; set; }
@@ -20,5 +22,7 @@ namespace SpartaAcademyDatabseOnCSharp
 
         public virtual Location LocationNavigation { get; set; }
         public virtual ICollection<Trainee> Trainees { get; set; }
+        public virtual ICollection<TrainersCoursesLink> TrainersCoursesLinks { get; set; }
+        public virtual ICollection<TrainersStreamsLink> TrainersStreamsLinks { get; set; }
     }
 }

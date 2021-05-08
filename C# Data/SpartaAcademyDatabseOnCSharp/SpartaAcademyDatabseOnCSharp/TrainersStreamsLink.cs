@@ -7,7 +7,8 @@ namespace SpartaAcademyDatabseOnCSharp
 {
     public partial class TrainersStreamsLink
     {
-        public int? TrainerId { get; set; }
+        public int Pk { get; set; }
+        public int TrainerId { get; set; }
         public string Stream { get; set; }
 
         public virtual Stream StreamNavigation { get; set; }

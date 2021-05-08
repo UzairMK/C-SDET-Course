@@ -7,6 +7,7 @@ namespace SpartaAcademyDatabseOnCSharp
 {
     public partial class TrainersCoursesLink
     {
+        public int Pk { get; set; }
         public int TrainerId { get; set; }
         public string Course { get; set; }
 
