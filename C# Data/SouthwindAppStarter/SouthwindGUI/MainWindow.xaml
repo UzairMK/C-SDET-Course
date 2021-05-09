@@ -7,21 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="486" Width="509">
     <Grid Background="Black">
-        <TabControl>
+        <TabControl SelectionChanged="TabSelectionChange">
             <TabItem x:Name="TabCustomers" Header="Customers" FontFamily="Arial Black" FontSize="20">
                 <Grid Background="#FFE5E5E5">
                     <ListBox x:Name="ListBoxCustomers" Margin="10,10,0,0" SelectionChanged="ListBoxCustomers_SelectionChanged" FontSize="10" HorizontalAlignment="Left" Width="202" Height="311" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxCustomerID" HorizontalAlignment="Left" Margin="229,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" IsEnabled="False" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxCustomerID" HorizontalAlignment="Left" Margin="229,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" IsEnabled="False" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
                     <Label Content="Customer ID:" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxCustomerName" HorizontalAlignment="Left" Margin="229,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxCustomerName" HorizontalAlignment="Left" Margin="229,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
                     <Label Content="Name:" HorizontalAlignment="Left" Margin="229,73,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxCustomerCity" HorizontalAlignment="Left" Margin="229,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" FontSize="14" Height="26" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxCustomerCity" HorizontalAlignment="Left" Margin="229,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" FontSize="14" Height="26" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
                     <Label Content="City:" HorizontalAlignment="Left" Margin="229,136,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxCustomerPostcode" HorizontalAlignment="Left" Margin="229,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxCustomerPostcode" HorizontalAlignment="Left" Margin="229,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
                     <Label Content="Postcode:" HorizontalAlignment="Left" Margin="229,200,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxCustomerCountry" HorizontalAlignment="Left" Margin="229,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxCustomerCountry" HorizontalAlignment="Left" Margin="229,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" FontSize="14" Height="25" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
                     <Label Content="Country:" HorizontalAlignment="Left" Margin="229,263,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="ButtonUpdateCustomer" Content="Update" HorizontalAlignment="Left" Margin="229,344,0,0" VerticalAlignment="Top" Width="168" Click="CustomerButtons"/>
+                    <Button x:Name="ButtonUpdateCustomer" Content="Update" HorizontalAlignment="Left" Margin="229,335,0,0" VerticalAlignment="Top" Width="231" Click="CustomerButtons" Height="54"/>
                     <Button x:Name="ButtonAddCustomer" Content="Add" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Height="54" Width="92" Click="CustomerButtons"/>
                     <Button x:Name="ButtonRemoveCustomer" Content="Remove" HorizontalAlignment="Left" Margin="121,335,0,0" VerticalAlignment="Top" Height="54" Width="89" Click="CustomerButtons"/>
                 </Grid>
@@ -29,10 +29,10 @@
             <TabItem x:Name="TabOrders" Header="Orders" FontFamily="Arial Black" FontSize="20">
                 <Grid Background="#FFE5E5E5">
                     <ListBox x:Name="ListBoxOrders" Margin="10,78,0,0" SelectionChanged="ListBoxOrders_SelectionChanged" FontSize="10" Height="311" VerticalAlignment="Top" HorizontalAlignment="Left" Width="202"/>
-                    <TextBox x:Name="TextBoxOrderId" HorizontalAlignment="Left" Margin="229,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" FontSize="14" Height="25" VerticalContentAlignment="Center" IsEnabled="False"/>
+                    <TextBox x:Name="TextBoxOrderId" HorizontalAlignment="Left" Margin="229,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" FontSize="14" Height="25" VerticalContentAlignment="Center" IsEnabled="False"/>
                     <Label Content="Order ID:" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top"/>
                     <Label Content="Order date:" HorizontalAlignment="Left" Margin="229,73,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxTotalCost" HorizontalAlignment="Left" Margin="229,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" FontSize="14" Height="26" VerticalContentAlignment="Center" IsEnabled="False"/>
+                    <TextBox x:Name="TextBoxTotalCost" HorizontalAlignment="Left" Margin="229,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" FontSize="14" Height="26" VerticalContentAlignment="Center" IsEnabled="False"/>
                     <Label Content="Total cost (£):" HorizontalAlignment="Left" Margin="229,136,0,0" VerticalAlignment="Top" Width="168"/>
                     <Label Content="Item list:" HorizontalAlignment="Left" Margin="229,200,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="ButtonCancelOrder" Content="Cancel" HorizontalAlignment="Left" Margin="229,362,0,0" VerticalAlignment="Top" Width="84" Click="OrderButtons"/>
@@ -40,8 +40,8 @@
                     <ComboBox x:Name="ComboBoxProduct" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="163" SelectionChanged="ComboBoxesOrders_SelectionChanged" FontSize="14" Height="29" VerticalContentAlignment="Center"/>
                     <Label Content="Shipped:" HorizontalAlignment="Left" Margin="229,324,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="LabelShippedIndicator" Content="" HorizontalAlignment="Left" Margin="338,332,0,0" VerticalAlignment="Top" Width="49" Height="19" Background="#FFFF0202"/>
-                    <ScrollViewer x:Name="ScrollViewerItemList" Margin="229,233,0,0" Background="White" FontSize="14" Height="86" VerticalAlignment="Top" HorizontalAlignment="Left" Width="168"/>
-                    <DatePicker x:Name="DatePickerOrderDate" HorizontalAlignment="Left" Margin="229,100,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <ScrollViewer x:Name="ScrollViewerItemList" Margin="229,233,0,0" Background="White" FontSize="14" Height="86" VerticalAlignment="Top" HorizontalAlignment="Left" Width="227"/>
+                    <DatePicker x:Name="DatePickerOrderDate" HorizontalAlignment="Left" Margin="229,100,0,0" VerticalAlignment="Top" IsEnabled="False" Width="227"/>
                     <Button x:Name="ButtonShipOrder" Content="Ship" HorizontalAlignment="Left" Margin="319,362,0,0" VerticalAlignment="Top" Width="78" Click="OrderButtons"/>
                     <Button x:Name="ButtonOrderFilterCustomer" Content="C" HorizontalAlignment="Left" Margin="178,10,0,0" VerticalAlignment="Top" Width="34" Height="29" BorderBrush="Red" Background="White" Click="ToggleOrderFilter"/>
                     <Button x:Name="ButtonOrderFilterProduct" Content="P" HorizontalAlignment="Left" Margin="178,44,0,0" VerticalAlignment="Top" Width="34" Click="ToggleOrderFilter" Height="29" BorderBrush="Red" Background="White"/>
@@ -49,26 +49,27 @@
             </TabItem>
             <TabItem x:Name="TabProducts" Header="Products" FontFamily="Arial Black" FontSize="20">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="TextBoxProductId" HorizontalAlignment="Left" Margin="229,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="25"/>
+                    <TextBox x:Name="TextBoxProductId" HorizontalAlignment="Left" Margin="229,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="25"/>
                     <Label Content="Product ID:" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxProductName" HorizontalAlignment="Left" Margin="229,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="25"/>
+                    <TextBox x:Name="TextBoxProductName" HorizontalAlignment="Left" Margin="229,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="25"/>
                     <Label Content="Name:" HorizontalAlignment="Left" Margin="229,73,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxProductPrice" HorizontalAlignment="Left" Margin="229,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="26"/>
+                    <TextBox x:Name="TextBoxProductPrice" HorizontalAlignment="Left" Margin="229,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="26"/>
                     <Label Content="Price (£):" HorizontalAlignment="Left" Margin="229,136,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TextBoxProductStock" HorizontalAlignment="Left" Margin="229,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="25"/>
+                    <TextBox x:Name="TextBoxProductStock" HorizontalAlignment="Left" Margin="229,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Height="25"/>
                     <Label Content="Stock:" HorizontalAlignment="Left" Margin="229,200,0,0" VerticalAlignment="Top"/>
                     <Label Content="Date posted:" HorizontalAlignment="Left" Margin="229,263,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="ButtonUpdateProduct" Content="Update" HorizontalAlignment="Left" Margin="229,344,0,0" VerticalAlignment="Top" Width="168" Click="ProductButtons"/>
+                    <Button x:Name="ButtonUpdateProduct" Content="Update" HorizontalAlignment="Left" Margin="229,335,0,0" VerticalAlignment="Top" Width="211" Click="ProductButtons" Height="54"/>
                     <Button x:Name="ButtonAddProduct" Content="Add" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Height="54" Width="92" Click="ProductButtons"/>
                     <Button x:Name="ButtonRemoveProduct" Content="Remove" HorizontalAlignment="Left" Margin="121,335,0,0" VerticalAlignment="Top" Height="54" Width="89" Click="ProductButtons"/>
                     <ListBox x:Name="ListBoxProducts" Margin="10,10,0,0" SelectionChanged="ListBoxProducts_SelectionChanged" FontSize="10" HorizontalAlignment="Left" Width="202" Height="311" VerticalAlignment="Top"/>
-                    <DatePicker x:Name="DatePickerProductDatePosted" HorizontalAlignment="Left" Margin="229,293,0,0" VerticalAlignment="Top" Width="197" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Height="28"/>
+                    <DatePicker x:Name="DatePickerProductDatePosted" HorizontalAlignment="Left" Margin="229,293,0,0" VerticalAlignment="Top" Width="211" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Height="28"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabMakeOrder" Header="Make Order" FontFamily="Arial Black" FontSize="20">
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="ComboBoxMakeOrderCustomer" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Width="281" FontSize="14" Height="29" VerticalContentAlignment="Center"/>
-                    <Button x:Name="ButtonMakeOrder" Content="Make Order" HorizontalAlignment="Center" Margin="0,93,0,0" VerticalAlignment="Top" Height="54" Width="176"/>
+                    <ComboBox x:Name="ComboBoxMakeOrderCustomer" HorizontalAlignment="Center" Margin="0,87,0,0" VerticalAlignment="Top" Width="281" FontSize="14" Height="29" VerticalContentAlignment="Center"/>
+                    <Button x:Name="ButtonMakeOrder" Content="Make Order" HorizontalAlignment="Center" Margin="0,121,0,0" VerticalAlignment="Top" Height="54" Width="176" Click="MakeOrder"/>
+                    <Label Content="Select a customer:" HorizontalAlignment="Left" Margin="111,55,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>

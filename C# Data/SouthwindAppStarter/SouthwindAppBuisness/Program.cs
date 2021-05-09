@@ -11,7 +11,7 @@ namespace SouthwindAppBuisness
     {
         static void Main()
         {
-            CustomerManager _customerManager = new();
+            //CustomerManager _customerManager = new();
 
             //_customerManager.CreateNewProduct("Mouse");
             //_customerManager.CreateNewProduct("Keyboard");

@@ -6,11 +6,9 @@ using System.Linq;
 
 namespace SouthwindAppBuisness
 {
-    public class CustomerManager
+    public static class CRUDManager
     {
-        public Customer SelectedCustomer { get; set; }
-
-        public void CreateNewCustomer(string customerId, string contactName, string city, string postalCode, string country)
+        public static void CreateNewCustomer(string customerId, string contactName, string city, string postalCode, string country)
         {
             using (var db = new SouthwindContext())
             {
@@ -27,7 +25,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public List<Customer> RetrieveAllCustomers()
+        public static List<Customer> RetrieveAllCustomers()
         {
             using (var db = new SouthwindContext())
             {
@@ -35,15 +33,15 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void SetSelectedCustomer(string customerId)
+        public static Customer GetCustomer(string customerId)
         {
             using (var db = new SouthwindContext())
             {
-                SelectedCustomer = db.Customers.Find(customerId);
+                return db.Customers.Find(customerId);
             }
         }
 
-        public void UpdateCustomer(string customerId, string contactName, string city, string postalCode, string country)
+        public static void UpdateCustomer(string customerId, string contactName, string city, string postalCode, string country)
         {
             using (var db = new SouthwindContext())
             {
@@ -58,7 +56,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void DeleteCustomer(string customerId)
+        public static void DeleteCustomer(string customerId)
         {
             using (var db = new SouthwindContext())
             {
@@ -78,7 +76,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void CreateNewOrder(string customerId, DateTime orderDate, DateTime shippedDate, string shipCountry, List<OrderDetail> orderDetails)
+        public static void CreateNewOrder(string customerId, DateTime orderDate, string shipCountry, List<OrderDetail> orderDetails)
         {
             using (var db = new SouthwindContext())
             {
@@ -86,7 +84,6 @@ namespace SouthwindAppBuisness
                 {
                     CustomerId = customerId,
                     OrderDate = orderDate,
-                    ShippedDate = shippedDate,
                     ShipCountry = shipCountry,
                     OrderDetails = orderDetails
                 });
@@ -95,7 +92,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public List<Order> RetrieveAllOrders()
+        public static List<Order> RetrieveAllOrders()
         {
             using (var db = new SouthwindContext())
             {
@@ -103,7 +100,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public List<OrderDetail> RetrieveOrderDetailsList(int orderId)
+        public static List<OrderDetail> RetrieveOrderDetailsList(int orderId)
         {
             using (var db = new SouthwindContext())
             {
@@ -116,7 +113,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public double RetrieveOrderTotalCost(int orderId)
+        public static double RetrieveOrderTotalCost(int orderId)
         {
             using (var db = new SouthwindContext())
             {
@@ -128,7 +125,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void UpdateOrder(int orderId, DateTime shippedDate, string shipCountry)
+        public static void UpdateOrder(int orderId, DateTime shippedDate, string shipCountry)
         {
             using (var db = new SouthwindContext())
             {
@@ -141,27 +138,46 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void DeleteOrder(int orderId)
+        public static void DeleteOrder(int orderId)
         {
             using (var db = new SouthwindContext())
             {
                 var orderDetailsForThisOrder =
                     from od in db.OrderDetails
                     where od.OrderId == orderId
-                    select od.OrderDetailId;
+                    select od;
 
                 foreach (var od in orderDetailsForThisOrder)
                 {
-                    DeleteOrderDetail(od);
+                    DecreaseProductStock(od.ProductId, -1 * od.Quantity);
+                    DeleteOrderDetail(od.OrderDetailId);
                 }
+            }
 
-                db.Orders.Remove(db.Orders.Find(orderId));
+            using (var db = new SouthwindContext())
+            {
+                var orderToBeDeleted = db.Orders.Find(orderId);
+
+                db.Orders.Remove(orderToBeDeleted);
 
                 db.SaveChanges();
             }
         }
 
-        public OrderDetail ReturnOrderDetail(decimal unitPrice, short quantity, float discount, int productId)
+        public static OrderDetail CreateOrderDetail(int productId, short quantity, float discount)
+        {
+            var orderDetail = new OrderDetail()
+            {
+                ProductId = productId,
+                UnitPrice = Math.Round((decimal)GetProduct(productId).Price, 2),
+                Quantity = quantity,
+                Discount = discount
+            };
+
+            return orderDetail;
+        }
+
+        public static OrderDetail ReturnOrderDetail(decimal unitPrice, short quantity, float discount, int productId)
         {
             using (var db = new SouthwindContext())
             {
@@ -177,7 +193,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void DeleteOrderDetail(int orderDetailId)
+        public static void DeleteOrderDetail(int orderDetailId)
         {
             using (var db = new SouthwindContext())
             {
@@ -187,7 +203,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void CreateNewProduct(string productName, double price, int stock = 0)
+        public static void CreateNewProduct(string productName, double price, int stock = 0)
         {
             using (var db = new SouthwindContext())
             {
@@ -196,22 +212,49 @@ namespace SouthwindAppBuisness
                     ProductName = productName,
                     Price = price,
                     Stock = stock,
-                    DateAdded = DateTime.Now
+                    DateAdded = DateTime.Now,
+                    Discontinued = false
                 });
 
                 db.SaveChanges();
             }
         }
 
-        public List<Product> RetrieveAllProducts()
+        public static Product GetProduct(int productId)
         {
             using (var db = new SouthwindContext())
             {
-                return db.Products.ToList();
+                return db.Products.Find(productId);
             }
         }
 
-        public void UpdateProduct(int productId, string productName, double price, int stock, DateTime dateAdded)
+        public static List<Product> RetrieveAllProducts()
+        {
+            using (var db = new SouthwindContext())
+            {
+                var activeProducts =
+                    from p in db.Products
+                    where p.Discontinued == false
+                    select p;
+
+                return activeProducts.ToList();
+            }
+        }
+
+        public static List<Product> RetrieveDiscontinuedProducts()
+        {
+            using (var db = new SouthwindContext())
+            {
+                var discontinuedProducts =
+                    from p in db.Products
+                    where p.Discontinued == true
+                    select p;
+
+                return discontinuedProducts.ToList();
+            }
+        }
+
+        public static void UpdateProduct(int productId, string productName, double price, int stock, DateTime dateAdded)
         {
             using (var db = new SouthwindContext())
             {
@@ -226,17 +269,31 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public void DeleteProduct(int productId)
+        public static void DecreaseProductStock(int productId, int decreaseAmount)
         {
             using (var db = new SouthwindContext())
             {
-                db.Products.Remove(db.Products.Find(productId));
+                var product = db.Products.Find(productId);
+
+                if (decreaseAmount > product.Stock)
+                    throw new Exception("Should not be able to decrease stock to less than 0");
+                product.Stock -= decreaseAmount;
 
                 db.SaveChanges();
             }
         }
 
-        public List<Order> FilterOrders(string? customerId, int? productId)
+        public static void DeleteProduct(int productId)
+        {
+            using (var db = new SouthwindContext())
+            {
+                db.Products.Find(productId).Discontinued = true;
+
+                db.SaveChanges();
+            }
+        }
+
+        public static List<Order> FilterOrders(string? customerId, int? productId)
         {
             using (var db = new SouthwindContext())
             {
@@ -281,7 +338,7 @@ namespace SouthwindAppBuisness
             }
         }
 
-        public bool DoesOrderHaveThisProduct(Order order, int? productId)
+        public static bool DoesOrderHaveThisProduct(Order order, int? productId)
         {
             using (var db = new SouthwindContext())
             {

@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SouthwindGUI"
         mc:Ignorable="d"
-        Title="Make Order" Height="450" Width="800">
-    <Grid>
-        
+        Title="Make Order" Height="450" Width="655">
+    <Grid Background="#FFE6E6E6">
+        <Label x:Name="LabelOrderFor" Content="Order For: " HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="635" Height="35" FontSize="20" FontFamily="Arial Black"/>
+        <Label x:Name="LabelProducts" Content="Products: " HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="213" Height="35" FontSize="20" FontFamily="Arial Black"/>
+        <ListBox x:Name="ListBoxProducts" HorizontalAlignment="Left" Width="213" Height="305" VerticalAlignment="Top" Margin="10,85,0,0" SelectionChanged="ListBoxProducts_SelectionChanged"/>
+        <Label x:Name="LabelProductID" Content="Product ID: " HorizontalAlignment="Left" Margin="238,59,0,0" VerticalAlignment="Top" Width="138" Height="26" FontSize="14" FontFamily="Arial Black"/>
+        <TextBox x:Name="TextBoxProductId" HorizontalAlignment="Left" Margin="238,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontFamily="Arial Black" VerticalContentAlignment="Center" Height="26" IsEnabled="False"/>
+        <Label x:Name="LabelProductName" Content="Name: " HorizontalAlignment="Left" Margin="238,119,0,0" VerticalAlignment="Top" Width="138" Height="26" FontSize="14" FontFamily="Arial Black"/>
+        <TextBox x:Name="TextBoxProductName" HorizontalAlignment="Left" Margin="238,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontFamily="Arial Black" VerticalContentAlignment="Center" Height="26" IsEnabled="False"/>
+        <Label x:Name="LabelQuantity" Content="Quantity: " HorizontalAlignment="Left" Margin="238,239,0,0" VerticalAlignment="Top" Width="138" Height="26" FontSize="14" FontFamily="Arial Black"/>
+        <TextBox x:Name="TextBoxQuantity" HorizontalAlignment="Left" Margin="238,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontFamily="Arial Black" VerticalContentAlignment="Center" Height="26"/>
+        <Label x:Name="LabelDiscount" Content="Discount: " HorizontalAlignment="Left" Margin="238,299,0,0" VerticalAlignment="Top" Width="138" Height="26" FontSize="14" FontFamily="Arial Black"/>
+        <TextBox x:Name="TextBoxDiscount" HorizontalAlignment="Left" Margin="238,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontFamily="Arial Black" VerticalContentAlignment="Center" Height="26"/>
+        <Button x:Name="ButtonAdd" Content="Add" HorizontalAlignment="Left" Margin="238,358,0,0" VerticalAlignment="Top" Width="138" Height="32" FontFamily="Arial Black" FontSize="20" Click="Buttons"/>
+        <Label x:Name="LabelBasket" Content="Basket: " HorizontalAlignment="Left" Margin="392,50,0,0" VerticalAlignment="Top" Width="213" Height="35" FontSize="20" FontFamily="Arial Black"/>
+        <Button x:Name="ButtonRemove" Content="Remove" HorizontalAlignment="Left" Margin="393,321,0,0" VerticalAlignment="Top" Width="212" Height="32" FontFamily="Arial Black" FontSize="20" Click="Buttons"/>
+        <Button x:Name="ButtonMakeOrder" Content="Make Order" HorizontalAlignment="Left" Margin="393,358,0,0" VerticalAlignment="Top" Width="212" Height="32" FontFamily="Arial Black" FontSize="20" Click="Buttons"/>
+        <Label x:Name="LabelProductPrice" Content="Price (£): " HorizontalAlignment="Left" Margin="238,179,0,0" VerticalAlignment="Top" Width="138" Height="26" FontSize="14" FontFamily="Arial Black"/>
+        <TextBox x:Name="TextBoxProductPrice" HorizontalAlignment="Left" Margin="238,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontFamily="Arial Black" VerticalContentAlignment="Center" Height="26" IsEnabled="False"/>
+        <ListBox x:Name="ListBoxBasket" Margin="393,86,0,0" HorizontalAlignment="Left" Width="212" Height="230" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

@@ -22,7 +22,6 @@ namespace SouthwindGUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CustomerManager CRUDManager = new();
         private bool _addingCustomer;
         private bool _addingProduct;
         private Order _selectedOrder;
@@ -54,6 +53,11 @@ namespace SouthwindGUI
                 case "Add":
                     if (_addingCustomer)
                     {
+                        if (customerID.Length != 5 || CRUDManager.GetCustomer(customerID) != null)
+                        {
+                            MessageBox.Show("Customer ID must be 5 characters long and also unique.");
+                            return;
+                        }
                         CRUDManager.CreateNewCustomer(customerID, customerName, customerCity, customerPostcode, customerCountry);
                         CustomerItemsEnable(true);
                         _addingCustomer = false;
@@ -69,10 +73,21 @@ namespace SouthwindGUI
                     _addingCustomer = false;
                     break;
                 case "Remove":
-                    CRUDManager.DeleteCustomer(customerID);
+                    if (CRUDManager.GetCustomer(customerID) == null)
+                        return;
+                    MessageBoxResult msgResult = MessageBox.Show($"Are you sure you want to remove [{customerID}] {customerName}?\n\n!WARNING!\nRemoving a customer will also remove all their order.\nThis process is irreversible", "Remove Customer", MessageBoxButton.YesNo);
+                    switch (msgResult)
+                    {
+                        case MessageBoxResult.Yes:
+                            CRUDManager.DeleteCustomer(customerID);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case "Update":
                     CRUDManager.UpdateCustomer(customerID, customerName, customerCity, customerPostcode, customerCountry);
+                    MessageBox.Show($"[{customerID}] {customerName} updated");
                     break;
                 default:
                     break;
@@ -119,38 +134,61 @@ namespace SouthwindGUI
         {
             var button = (Button)sender;
 
+            if (_selectedOrder == null)
+                return;
+
             switch (button.Content)
             {
                 case "Cancel":
-                    if (_selectedOrder.ShippedDate == null || _selectedOrder.ShippedDate > DateTime.Now)
+                    if (LabelShippedIndicator.Background == Brushes.Red)
                     {
-                        CRUDManager.DeleteOrder(_selectedOrder.OrderId);
-                        LoadOrders(_filterCustomerId, _filterProductId);
+                        MessageBoxResult msgResult = MessageBox.Show($"Are you sure you want to cancel {_selectedOrder}?", "Cancel Order", MessageBoxButton.YesNo);
+                        switch (msgResult)
+                        {
+                            case MessageBoxResult.Yes:
+                                CRUDManager.DeleteOrder(_selectedOrder.OrderId);
+                                _selectedOrder = null;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     break;
                 case "Ship":
-                    if (_selectedOrder.ShippedDate == null || _selectedOrder.ShippedDate > DateTime.Now)
+                    if (LabelShippedIndicator.Background == Brushes.Red)
                     {
-                        CRUDManager.UpdateOrder(_selectedOrder.OrderId, DateTime.Now, _selectedOrder.ShipCountry);
-                        LabelShippedIndicator.Background = Brushes.Green;
-                        LoadOrders(_filterCustomerId, _filterProductId);
+                        MessageBoxResult msgResult = MessageBox.Show($"Are you sure you want to mark {_selectedOrder} as shipped?\n\n!WARNING!\nOnce an order is shipped, it can not be removed.", "Ship Order", MessageBoxButton.YesNo);
+                        switch (msgResult)
+                        {
+                            case MessageBoxResult.Yes:
+                                CRUDManager.UpdateOrder(_selectedOrder.OrderId, DateTime.Now, _selectedOrder.ShipCountry);
+                                LabelShippedIndicator.Background = Brushes.Green;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     break;
                 default:
                     break;
             }
+
+            LoadOrders(_filterCustomerId, _filterProductId);
         }
 
         public void LoadOrders(string? customerId, int? productId)
         {
+            List<Order> orderList;
             if (_customerFilter && _productsFilter)
-                ListBoxOrders.ItemsSource = CRUDManager.FilterOrders(customerId, productId);
+                orderList = CRUDManager.FilterOrders(customerId, productId);
             else if (!_customerFilter && _productsFilter)
-                ListBoxOrders.ItemsSource = CRUDManager.FilterOrders(null, productId);
+                orderList = CRUDManager.FilterOrders(null, productId);
             else if (_customerFilter && !_productsFilter)
-                ListBoxOrders.ItemsSource = CRUDManager.FilterOrders(customerId, null);
+                orderList = CRUDManager.FilterOrders(customerId, null);
             else
-                ListBoxOrders.ItemsSource = CRUDManager.FilterOrders(null, null);
+                orderList = CRUDManager.FilterOrders(null, null);
+
+            ListBoxOrders.ItemsSource = orderList;
         }
 
         private void ListBoxOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -163,7 +201,7 @@ namespace SouthwindGUI
             _selectedOrder = order;
             var orderDetails = CRUDManager.RetrieveOrderDetailsList(order.OrderId);
             var scrollViewerContent = "";
-            orderDetails.ForEach(x => scrollViewerContent += $"{x.Quantity}x [{x.ProductId}] @£{Math.Round(x.UnitPrice * (decimal)(1 - x.Discount),2)}\n");
+            orderDetails.ForEach(x => scrollViewerContent += $"{x.Quantity}x [{x.ProductId}] {CRUDManager.GetProduct(x.ProductId).ProductName} @£{Math.Round(x.UnitPrice * (decimal)(1 - x.Discount),2)}\n");
             
             TextBoxOrderId.Text = order.OrderId.ToString();
             DatePickerOrderDate.SelectedDate = order.OrderDate;
@@ -185,18 +223,22 @@ namespace SouthwindGUI
             var productStockBool = int.TryParse(TextBoxProductStock.Text, out int intProductStock);
             var productDatePosted = DatePickerProductDatePosted.DisplayDate;
             
-
-            if (!productIDBool || !productPriceBool || !productStockBool)
-            {
-                MessageBox.Show("Make sure the text input in 'Product ID', 'Price', and 'Stock' are of the correct type.");
-                return;
-            }
-
             switch (button.Content)
             {
                 case "Add":
+                    TextBoxProductId.Text = "";
                     if (_addingProduct)
                     {
+                        if (!productPriceBool || !productStockBool)
+                        {
+                            MessageBox.Show("Make sure the text input in 'Product ID', 'Price', and 'Stock' are of the correct type.");
+                            return;
+                        }
+                        if (doubleProductPrice < 0 || intProductStock < 0)
+                        {
+                            MessageBox.Show("Price and Stock must be greater than zero");
+                            return;
+                        }
                         CRUDManager.CreateNewProduct(productName, doubleProductPrice, intProductStock);
                         ProductItemsEnable(true);
                         _addingProduct = false;
@@ -212,10 +254,32 @@ namespace SouthwindGUI
                     _addingProduct = false;
                     break;
                 case "Remove":
-                    CRUDManager.DeleteProduct(intProductID);
+                    if (CRUDManager.GetProduct(intProductID) != null)
+                    {
+                        MessageBoxResult msgResult = MessageBox.Show($"Are you sure you to remove [{intProductID}] {productName}.","Remove Product",MessageBoxButton.YesNo);
+                        switch (msgResult)
+                        {
+                            case MessageBoxResult.Yes:
+                                CRUDManager.DeleteProduct(intProductID);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     break;
                 case "Update":
+                    if (!productIDBool || !productPriceBool || !productStockBool)
+                    {
+                        MessageBox.Show("Make sure the text input in 'Product ID', 'Price', and 'Stock' are of the correct type.");
+                        return;
+                    }
+                    if (doubleProductPrice < 0 || intProductStock < 0)
+                    {
+                        MessageBox.Show("Price and Stock must be greater than zero");
+                        return;
+                    }
                     CRUDManager.UpdateProduct(intProductID, productName, doubleProductPrice, intProductStock, productDatePosted);
+                    MessageBox.Show($"[{intProductID}] {productName} updated");
                     break;
                 default:
                     break;
@@ -307,12 +371,18 @@ namespace SouthwindGUI
 
         public void MakeOrder(object sender, RoutedEventArgs e)
         {
-            if (ComboBoxMakeOrderCustomer == null)
-                return;
-
             _makeOrderFor = (Customer)ComboBoxMakeOrderCustomer.SelectedItem;
 
-            NavigationService.Navigate(new MakeOrder(_makeOrderFor));
+            if (_makeOrderFor == null)
+                return;
+
+            new MakeOrder(_makeOrderFor).Show();
+        }
+
+        private void TabSelectionChange(object sender, SelectionChangedEventArgs e)
+        {
+            LoadOrders(_filterCustomerId, _filterProductId);
+            LoadProducts();
         }
     }
 }
