@@ -1,0 +1,8 @@
+{"Stuff": [
+   {"Greetings": ["Hello", "Hi", "Hey", "Yo"]}, 
+   {"Farewells": ["Goodbye", "Bye", "See you later"]}, 
+   {"Burger": [
+      {"Price, £": 5}, 
+      {"Amount, kg": 1}
+   ]}
+]}

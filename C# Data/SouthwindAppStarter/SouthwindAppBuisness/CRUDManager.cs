@@ -100,6 +100,14 @@ namespace SouthwindAppBuisness
             }
         }
 
+        public static Order GetOrder(int orderId)
+        {
+            using (var db = new SouthwindContext())
+            {
+                return db.Orders.Find(orderId);
+            }
+        }
+
         public static List<OrderDetail> RetrieveOrderDetailsList(int orderId)
         {
             using (var db = new SouthwindContext())
@@ -147,9 +155,12 @@ namespace SouthwindAppBuisness
                     where od.OrderId == orderId
                     select od;
 
+                bool shipped = GetOrder(orderId).ShippedDate != null;
+
                 foreach (var od in orderDetailsForThisOrder)
                 {
-                    DecreaseProductStock(od.ProductId, -1 * od.Quantity);
+                    if (!shipped)
+                        DecreaseProductStock(od.ProductId, -1 * od.Quantity);
                     DeleteOrderDetail(od.OrderDetailId);
                 }
             }

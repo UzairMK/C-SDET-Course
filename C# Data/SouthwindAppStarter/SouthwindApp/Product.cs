@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SouthwindApp
 {
-    public class Product
+    public partial class Product
     {
         public Product()
         {
@@ -18,7 +18,5 @@ namespace SouthwindApp
         public bool Discontinued { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-
-        public override string ToString() => $"[{ProductId}] {ProductName}";
     }
 }

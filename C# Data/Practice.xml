@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Title>
+<Greetings>
+   <Item1>Hello</Item1>
+   <Item2>Hi</Item2>
+   <Item3>Hey</Item3>
+   <Item4>Yo</Item4>
+</Greetings>
+<Greetings Item1="Hello" Item2="Hi">
+   <Item3>Hey</Item3>
+   <Item4>Yo</Item4>
+</Greetings>
+</Title>

@@ -109,6 +109,7 @@ namespace SouthwindGUI
         private void LoadBasket()
         {
             ListBoxBasket.ItemsSource = _basket;
+            ListBoxBasket.Items.Refresh();
         }
 
         private string Recipt()

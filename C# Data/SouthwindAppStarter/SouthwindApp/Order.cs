@@ -18,12 +18,5 @@ namespace SouthwindApp
 
         public virtual Customer Customer { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-
-        public override string ToString()
-        {
-            if (ShippedDate != null)
-                return $"S[{OrderId}] ({CustomerId}) {OrderDate}";
-            return $"[{OrderId}] ({CustomerId}) {OrderDate}";
-        }
     }
 }

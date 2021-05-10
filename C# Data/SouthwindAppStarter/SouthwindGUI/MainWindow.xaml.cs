@@ -221,7 +221,7 @@ namespace SouthwindGUI
             var productName = TextBoxProductName.Text;
             var productPriceBool = double.TryParse(TextBoxProductPrice.Text, out double doubleProductPrice);
             var productStockBool = int.TryParse(TextBoxProductStock.Text, out int intProductStock);
-            var productDatePosted = DatePickerProductDatePosted.DisplayDate;
+            var productDatePosted = DatePickerProductDatePosted.SelectedDate.Value;
             
             switch (button.Content)
             {
@@ -376,7 +376,9 @@ namespace SouthwindGUI
             if (_makeOrderFor == null)
                 return;
 
-            new MakeOrder(_makeOrderFor).Show();
+            var makeOrderWindow = new MakeOrder(_makeOrderFor);
+            makeOrderWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            makeOrderWindow.Show();
         }
 
         private void TabSelectionChange(object sender, SelectionChangedEventArgs e)
