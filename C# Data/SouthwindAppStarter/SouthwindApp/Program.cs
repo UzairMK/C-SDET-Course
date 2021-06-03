@@ -49,18 +49,18 @@ namespace SouthwindApp
                 //db.Orders.ToList().ForEach(x => Console.WriteLine(x.ShipCountry));
                 //db.Orders.ToList().ForEach(x => Console.WriteLine(x.Customer.ContactName));
 
-                var order = db.Orders.Find(9);
+                //var order = db.Orders.Find(9);
 
-                var orderDetail1 = new OrderDetail() { Discount = 0.05f, Quantity = 2, UnitPrice = 6, ProductId = 7 };
-                var orderDetail2 = new OrderDetail() { Discount = 0.1f, Quantity = 1, UnitPrice = 8 ,ProductId = 8 };
+                //var orderDetail1 = new OrderDetail() { Discount = 0.05f, Quantity = 2, UnitPrice = 6, ProductId = 7 };
+                //var orderDetail2 = new OrderDetail() { Discount = 0.1f, Quantity = 1, UnitPrice = 8 ,ProductId = 8 };
 
-                var orderDetailList = new List<OrderDetail>();
+                //var orderDetailList = new List<OrderDetail>();
 
-                orderDetailList.Add(orderDetail1);
-                orderDetailList.Add(orderDetail2);
+                //orderDetailList.Add(orderDetail1);
+                //orderDetailList.Add(orderDetail2);
 
-                order.OrderDetails = orderDetailList;
-                db.SaveChanges();
+                //order.OrderDetails = orderDetailList;
+                //db.SaveChanges();
 
                 //var custQuery = db.Customers.OrderBy(c => c.ContactName);
 
@@ -74,9 +74,14 @@ namespace SouthwindApp
                 //    }
                 //}
 
-                var orderDetails = db.OrderDetails.Include(c => c.Order).ThenInclude(c => c.Customer);
+                //var orderDetails = db.OrderDetails.Include(c => c.Order).ThenInclude(c => c.Customer);
 
-                orderDetails.ToList().ForEach(x => Console.WriteLine($"Customer: {x.Order.Customer.ContactName}, Order: {x.Order.OrderId}, OrderPrice: {x.UnitPrice}"));
+                //orderDetails.ToList().ForEach(x => Console.WriteLine($"Customer: {x.Order.Customer.ContactName}, Order: {x.Order.OrderId}, OrderPrice: {x.UnitPrice}"));
+
+                var customers =
+                    from Customer c in db.Customers
+                    where c.CustomerId == "UZAIR"
+                    select c;
             }
         }
     }
