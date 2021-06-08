@@ -5,7 +5,7 @@ namespace API_Tests
 {
     class MultiPostcodeService
     {
-        public CallManager CallManager { get; set; }
+        public ICallManager CallManager { get; set; }
         public JObject JsonResponse { get; set; }
         public string[] PostcodesSelected { get; set; }
         public DTO<MultiPostcodeResponse> MultiPostcodeDTO { get; set; }

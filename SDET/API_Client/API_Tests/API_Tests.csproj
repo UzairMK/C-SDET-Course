@@ -77,10 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig\AppConfigReader.cs" />
+    <Compile Include="Services\HTTPManager\ICallManager.cs" />
     <Compile Include="Services\DataHandling\Model.cs" />
     <Compile Include="Services\DataHandling\DTO.cs" />
     <Compile Include="Services\HTTPManager\CallManager.cs" />
-    <Compile Include="Services\IResponse.cs" />
+    <Compile Include="Services\DataHandling\IResponse.cs" />
     <Compile Include="Services\SingleOutcodeService.cs" />
     <Compile Include="Services\MultiPostcodeService.cs" />
     <Compile Include="Services\SinglePostcodeService.cs" />

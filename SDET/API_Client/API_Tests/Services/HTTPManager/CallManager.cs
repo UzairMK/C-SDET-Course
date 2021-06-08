@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace API_Tests
 {
-    public class CallManager
+    public class CallManager : ICallManager
     {
         private readonly IRestClient _client;
 

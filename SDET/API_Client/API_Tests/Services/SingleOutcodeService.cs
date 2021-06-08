@@ -5,7 +5,7 @@ namespace API_Tests
 {
     class SingleOutcodeService
     {
-        public CallManager CallManager { get; set; }
+        public ICallManager CallManager { get; set; }
         public JObject JsonResponse { get; set; }
         public string OutcodeSelected { get; set; }
         public DTO<SingleOutcodeResponse> SingleOutcodeDTO { get; set; }

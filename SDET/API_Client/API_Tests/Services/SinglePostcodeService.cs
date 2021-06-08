@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
-using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace API_Tests
 {
     class SinglePostcodeService
     {
-        public CallManager CallManager { get; set; }
+        public ICallManager CallManager { get; set; }
         public JObject JsonResponse { get; set; }
         public string PostcodeSelected { get; set; }
         public DTO<SinglePostcodeResponse> SinglePostcodeDTO { get; set; }
