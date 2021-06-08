@@ -19,15 +19,21 @@ namespace API_Tests
         [Test]
         public void StatusIs200()
         {
-            Assert.That(_singlePostcodeService.ResponseContent["status"].ToString(), Is.EqualTo("200"));
-            Assert.That(_singlePostcodeService.StatusCode, Is.EqualTo("OK"));
-            Assert.That(_singlePostcodeService.ResponseObject.status, Is.EqualTo(200));
+            Assert.That(_singlePostcodeService.JsonResponse["status"].ToString(), Is.EqualTo("200"));
+            Assert.That(_singlePostcodeService.CallManager.StatusDescription, Is.EqualTo("OK"));
+            Assert.That(_singlePostcodeService.SinglePostcodeDTO.Response.status, Is.EqualTo(200));
         }
 
         [Test]
         public void AdminDistrict_IsCityOfLondon()
         {
-            Assert.That(_singlePostcodeService.ResponseObject.result.admin_district, Is.EqualTo("City of London"));
+            Assert.That(_singlePostcodeService.SinglePostcodeDTO.Response.result.admin_district, Is.EqualTo("City of London"));
+        }
+
+        [Test]
+        public void CodeCount_Is12()
+        {
+            Assert.That(_singlePostcodeService.CodeCount(), Is.EqualTo(12));
         }
     }
 }

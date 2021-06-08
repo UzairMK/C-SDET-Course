@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 
@@ -19,18 +20,19 @@ namespace API_Tests
         [Test]
         public void StatusIs200()
         {
-            Assert.That(_multiPostcodeService.ResponseContent["status"].ToString(), Is.EqualTo("200"));
-            Assert.That(_multiPostcodeService.StatusCode, Is.EqualTo("OK"));
-            Assert.That(_multiPostcodeService.ResponseObject.status, Is.EqualTo(200));
+            Assert.That(_multiPostcodeService.JsonResponse["status"].ToString(), Is.EqualTo("200"));
+            Assert.That(_multiPostcodeService.CallManager.StatusDescription, Is.EqualTo("OK"));
+            Assert.That(_multiPostcodeService.MultiPostcodeDTO.Response.status, Is.EqualTo(200));
         }
 
         [Test]
         public void AdminDistricts_AreCorrect_ForTheGivenPostcodes()
         {
-            Assert.That(_multiPostcodeService.ResponseObject.result[0].result.admin_district, Is.EqualTo("City of London"));
-            Assert.That(_multiPostcodeService.ResponseObject.result[1].result.admin_district, Is.EqualTo("South Oxfordshire"));
-            Assert.That(_multiPostcodeService.ResponseObject.result[2].result.admin_district, Is.EqualTo("Birmingham"));
-            Assert.That(_multiPostcodeService.ResponseObject.result[3].result.admin_district, Is.EqualTo("North Tyneside"));
+            var ResponseResult = _multiPostcodeService.MultiPostcodeDTO.Response.result;
+            Assert.That(ResponseResult.Where(x => x.query == "EC2Y 5AS").FirstOrDefault().result.admin_district, Is.EqualTo("City of London"));
+            Assert.That(ResponseResult.Where(x => x.query == "OX49 5NU").FirstOrDefault().result.admin_district, Is.EqualTo("South Oxfordshire"));
+            Assert.That(ResponseResult.Where(x => x.query == "B7 4BB").FirstOrDefault().result.admin_district, Is.EqualTo("Birmingham"));
+            Assert.That(ResponseResult.Where(x => x.query == "NE30 1DP").FirstOrDefault().result.admin_district, Is.EqualTo("North Tyneside"));
         }
     }
 }

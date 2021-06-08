@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
-
 
 namespace API_Tests
 {
@@ -19,15 +17,15 @@ namespace API_Tests
         [Test]
         public void StatusIs200()
         {
-            Assert.That(_singleOutcodeService.ResponseContent["status"].ToString(), Is.EqualTo("200"));
-            Assert.That(_singleOutcodeService.StatusCode, Is.EqualTo("OK"));
-            Assert.That(_singleOutcodeService.ResponseObject.status, Is.EqualTo(200));
+            Assert.That(_singleOutcodeService.JsonResponse["status"].ToString(), Is.EqualTo("200"));
+            Assert.That(_singleOutcodeService.CallManager.StatusDescription, Is.EqualTo("OK"));
+            Assert.That(_singleOutcodeService.SingleOutcodeDTO.Response.status, Is.EqualTo(200));
         }
 
         [Test]
         public void Country_IsEngland()
         {
-            Assert.That(_singleOutcodeService.ResponseObject.result.country[0], Is.EqualTo("England"));
+            Assert.That(_singleOutcodeService.SingleOutcodeDTO.Response.result.country[0], Is.EqualTo("England"));
         }
     }
 }

@@ -11,30 +11,32 @@ namespace API_Tests
 {
     class SinglePostcodeService
     {
-        public RestClient Client { get; set; }
-        public JObject ResponseContent { get; set; }
+        public CallManager CallManager { get; set; }
+        public JObject JsonResponse { get; set; }
         public string PostcodeSelected { get; set; }
-        public string StatusCode { get; set; }
-        public SinglePostcodeResponse ResponseObject { get; set; }
+        public DTO<SinglePostcodeResponse> SinglePostcodeDTO { get; set; }
+        public string PostcodeResponse { get; set; }
 
         public SinglePostcodeService()
         {
-            Client = new RestClient() {BaseUrl = new Uri(AppConfigReader.BaseUrl) };
+            CallManager = new CallManager();
+            SinglePostcodeDTO = new DTO<SinglePostcodeResponse>();
         }
 
         public async Task MakeRequest(string postcode)
         {
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Content-Type","application/json");
             PostcodeSelected = postcode;
 
-            request.Resource = $"postcodes/{postcode.ToLower().Replace(" ","")}";
+            PostcodeResponse = await CallManager.MakePostcodeRequestAsync(postcode);
 
-            var response = await Client.ExecuteAsync(request);
+            JsonResponse = JObject.Parse(PostcodeResponse);
 
-            ResponseContent = JObject.Parse(response.Content);
-            StatusCode = response.StatusCode.ToString();
-            ResponseObject = JsonConvert.DeserializeObject<SinglePostcodeResponse>(response.Content);
+            SinglePostcodeDTO.DeserealizeResponse(PostcodeResponse);
+        }
+
+        public int CodeCount()
+        {
+            return JsonResponse["result"]["codes"].ToList().Count();
         }
     }
 }

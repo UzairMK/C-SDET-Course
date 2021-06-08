@@ -1,41 +1,31 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
-using System;
+﻿using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
 namespace API_Tests
 {
     class MultiPostcodeService
     {
-        public RestClient Client { get; set; }
-        public JObject ResponseContent { get; set; }
+        public CallManager CallManager { get; set; }
+        public JObject JsonResponse { get; set; }
         public string[] PostcodesSelected { get; set; }
-        public string StatusCode { get; set; }
-        public MultiPostcodeResponse ResponseObject { get; set; }
+        public DTO<MultiPostcodeResponse> MultiPostcodeDTO { get; set; }
+        public string PostcodesResponse { get; set; }
 
         public MultiPostcodeService()
         {
-            Client = new RestClient() {BaseUrl = new Uri(AppConfigReader.BaseUrl + "postcodes/") };
+            CallManager = new CallManager();
+            MultiPostcodeDTO = new DTO<MultiPostcodeResponse>();
         }
 
         public async Task MakeRequest(string[] postcodes)
         {
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Content-Type","application/json");
             PostcodesSelected = postcodes;
 
-            JObject pcs = new JObject()
-            {
-                new JProperty("postcodes", new JArray() { postcodes })
-            };
-            request.AddJsonBody(pcs.ToString());
+            PostcodesResponse = await CallManager.MakePostcodesRequestAsync(postcodes);
 
-            var response = await Client.ExecuteAsync(request);
+            JsonResponse = JObject.Parse(PostcodesResponse);
 
-            ResponseContent = JObject.Parse(response.Content);
-            StatusCode = response.StatusCode.ToString();
-            ResponseObject = JsonConvert.DeserializeObject<MultiPostcodeResponse>(response.Content);
+            MultiPostcodeDTO.DeserealizeResponse(PostcodesResponse);
         }
     }
 }

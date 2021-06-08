@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace API_Tests
+﻿namespace API_Tests
 {
 
-    public class SinglePostcodeResponse
+    public class SinglePostcodeResponse : IResponse
     {
         public int status { get; set; }
         public Postcode result { get; set; }
     }
 
-    public class MultiPostcodeResponse
+    public class MultiPostcodeResponse : IResponse
     {
         public int status { get; set; }
         public Result[] result { get; set; }
     }
 
-    public class SingleOutcodeResponse
+    public class SingleOutcodeResponse : IResponse
     {
         public int status { get; set; }
         public Outcode result { get; set; }
