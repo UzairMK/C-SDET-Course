@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using SeleniumPOMWalkthrough.Util;
+using System;
 using System.Threading;
 
 namespace SeleniumPOMWalkthrough.lib.pages
@@ -53,6 +55,15 @@ namespace SeleniumPOMWalkthrough.lib.pages
             }
             return message;            
         }
+
+        public void FillFields(ContactUsFields contactUsFields)
+        {
+            SelectSubjectHeading(contactUsFields.SubjectOption);
+            InputEmail(contactUsFields.Email);
+            InputOrderReference(contactUsFields.OrderReference);
+            InputMessage(contactUsFields.Message);
+        }
+
         public void InputEmail(string email) => EmailField.SendKeys(email);
         public void InputOrderReference(string reference) => OrderReferenceField.SendKeys(reference);
         public void InputMessage(string message) => MessageField.SendKeys(message);

@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using SeleniumPOMWalkthrough.Util;
+using System;
 
 namespace SeleniumPOMWalkthrough.lib.pages
 {
@@ -18,10 +20,16 @@ namespace SeleniumPOMWalkthrough.lib.pages
         }
 
         public void VisitSignInPage() => _seleniumDriver.Navigate().GoToUrl(_signInPageUrl);
-        public void InputEmail(string email) => EmailField.SendKeys(email);
+        public void InputEmailLogin(string email) => EmailField.SendKeys(email);
         public void InputPassword(string password) => PasswordField.SendKeys(password);
         public void ClickSignIn() => SignInButton.Click();
         public string GetAlertText() => SignInAlert.Text;
         public string GetPageTitle() => _seleniumDriver.Title;
+
+        public void InputLoginCredentials(Credentials credentials)
+        {
+            InputEmailLogin(credentials.Email);
+            InputPassword(credentials.Password);
+        }
     }
 }

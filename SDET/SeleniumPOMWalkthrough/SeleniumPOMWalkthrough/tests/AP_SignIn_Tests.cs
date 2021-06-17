@@ -20,7 +20,7 @@ namespace SeleniumPOMWalkthrough.tests
         public void GivenIAmOnTheSignInPage_AndIInputAValidEmail_AndA4CharPassword_WhenIClickSignInButton_ThenIShouldGetInvalidPasswordErrorMessage()
         {
             AP_Website.AP_SignInPage.VisitSignInPage();
-            AP_Website.AP_SignInPage.InputEmail("testing@snailmail.ccm");
+            AP_Website.AP_SignInPage.InputEmailLogin("testing@snailmail.ccm");
             AP_Website.AP_SignInPage.InputPassword("1234");
             AP_Website.AP_SignInPage.ClickSignIn();
             Assert.That(AP_Website.AP_SignInPage.GetAlertText(), Does.Contain("Invalid password"));
